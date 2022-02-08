@@ -7,7 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = Reference.MODID, version = Reference.VERSION, name = Reference.MODNAME, acceptedMinecraftVersions = "[1.7.10]")
-public class MyMod {
+public class GTMapAddonMod {
 
     private static Logger LOG = LogManager.getLogger(Reference.MODID);
 

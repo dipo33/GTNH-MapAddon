@@ -9,8 +9,8 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) 	{
         Config.syncronizeConfiguration(event.getSuggestedConfigurationFile());
 
-        MyMod.info(Config.greeting);
-        MyMod.info("I am " + Reference.MODNAME + " at version " + Reference.VERSION + " and group name " + Reference.GROUPNAME);
+        GTMapAddonMod.info(Config.greeting);
+        GTMapAddonMod.info("I am " + Reference.MODNAME + " at version " + Reference.VERSION + " and group name " + Reference.GROUPNAME);
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes."
