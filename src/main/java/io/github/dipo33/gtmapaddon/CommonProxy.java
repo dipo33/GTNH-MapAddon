@@ -10,7 +10,7 @@ public class CommonProxy {
         Config.syncronizeConfiguration(event.getSuggestedConfigurationFile());
 
         MyMod.info(Config.greeting);
-        MyMod.info("I am " + Tags.MODNAME + " at version " + Tags.VERSION + " and group name " + Tags.GROUPNAME);
+        MyMod.info("I am " + Reference.MODNAME + " at version " + Reference.VERSION + " and group name " + Reference.GROUPNAME);
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes."

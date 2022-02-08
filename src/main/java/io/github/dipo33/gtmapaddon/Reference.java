@@ -2,7 +2,7 @@ package io.github.dipo33.gtmapaddon;
 
 // Use this class for Strings only. Do not import any classes here. It will lead to issues with Mixins if in use!
 
-public class Tags {
+public class Reference {
 
     // GRADLETOKEN_* will be replaced by your configuration values at build time
     public static final String MODID = "GRADLETOKEN_MODID";
