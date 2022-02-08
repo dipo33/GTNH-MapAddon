@@ -1,4 +1,4 @@
-package com.myname.mymodid;
+package io.github.dipo33.gtmapaddon;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
