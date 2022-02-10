@@ -5,8 +5,8 @@ package io.github.dipo33.gtmapaddon;
 public class Reference {
 
     // GRADLETOKEN_* will be replaced by your configuration values at build time
-    public static final String MODID = "GRADLETOKEN_MODID";
-    public static final String MODNAME = "GRADLETOKEN_MODNAME";
+    public static final String MODID = "dipogtmapaddon";
+    public static final String MODNAME = "Dipo's GT Map Addon";
     public static final String VERSION = "GRADLETOKEN_VERSION";
-    public static final String GROUPNAME = "GRADLETOKEN_GROUPNAME";
+    public static final String GROUPNAME = "io.github.dipo33.gtmapaddon";
 }
