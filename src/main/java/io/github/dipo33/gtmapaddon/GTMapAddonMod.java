@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 @Mod(modid = Reference.MODID, version = Reference.VERSION, name = Reference.MODNAME, acceptedMinecraftVersions = "[1.7.10]")
 public class GTMapAddonMod {
 
-    private static Logger LOG = LogManager.getLogger(Reference.MODID);
+    private static final Logger LOG = LogManager.getLogger(Reference.MODID);
 
     @SidedProxy(clientSide=Reference.GROUPNAME + ".ClientProxy", serverSide=Reference.GROUPNAME + ".CommonProxy")
     public static CommonProxy proxy;
