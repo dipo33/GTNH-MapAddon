@@ -1,5 +1,5 @@
-// Add your dependencies here
-
 dependencies {
-
+    compile("com.github.SinTh0r4s:VisualProspecting:1.0.32b") {  // Adapt 1.0.10b to targeted release
+        exclude module: "TCNodeTracker"
+    }
 }
