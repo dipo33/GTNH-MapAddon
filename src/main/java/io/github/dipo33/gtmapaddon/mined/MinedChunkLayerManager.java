@@ -1,8 +1,13 @@
 package io.github.dipo33.gtmapaddon.mined;
 
+import com.sinthoras.visualprospecting.Utils;
 import com.sinthoras.visualprospecting.integration.model.layers.WaypointProviderManager;
 import com.sinthoras.visualprospecting.integration.model.locations.IWaypointAndLocationProvider;
 import io.github.dipo33.gtmapaddon.ClientProxy;
+import io.github.dipo33.gtmapaddon.command.MinedCommand;
+import io.github.dipo33.gtmapaddon.storage.ChunkStorage;
+import io.github.dipo33.gtmapaddon.storage.MinedChunk;
+import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,21 +22,21 @@ public class MinedChunkLayerManager extends WaypointProviderManager {
 
     @Override
     protected List<? extends IWaypointAndLocationProvider> generateVisibleElements(int minBlockX, int minBlockZ, int maxBlockX, int maxBlockZ) {
-        // TODO: Change corresponding to OreVeinLayerManager.java
+        final int minMinedChunkX = Utils.coordBlockToChunk(minBlockX);
+        final int minMinedChunkZ = Utils.coordBlockToChunk(minBlockZ);
+        final int maxMinedChunkX = Utils.coordBlockToChunk(maxBlockX);
+        final int maxMinedChunkZ = Utils.coordBlockToChunk(maxBlockZ);
+        final ChunkStorage<MinedChunk> chunkStorage = MinedCommand.MINED_CHUNKS_STORAGE.getDimension(Minecraft.getMinecraft().thePlayer.dimension);
+
         final List<MinedChunkLocation> locations = new ArrayList<>();
-        locations.add(new MinedChunkLocation(0, 0, 0, "psuchtak"));
-        locations.add(new MinedChunkLocation(0, 0, 1, "psuchtak"));
-        locations.add(new MinedChunkLocation(0, 0, 2, "psuchtak"));
-        locations.add(new MinedChunkLocation(0, 0, 3, "psuchtak"));
-
-        locations.add(new MinedChunkLocation(0, 3, -2, "DirtyFaced"));
-        locations.add(new MinedChunkLocation(0, 3, -1, "DirtyFaced"));
-        locations.add(new MinedChunkLocation(0, 3, 0, "DirtyFaced"));
-
-        locations.add(new MinedChunkLocation(0, -5, -5, "RainDrop_x"));
-        locations.add(new MinedChunkLocation(0, -1, 16, "RainDrop_x"));
-        locations.add(new MinedChunkLocation(0, 1, 20, "RainDrop_x"));
-        locations.add(new MinedChunkLocation(0, 1, 21, "psuchtak"));
+        for (int chunkX = minMinedChunkX; chunkX <= maxMinedChunkX; chunkX++) {
+            for (int chunkZ = minMinedChunkZ; chunkZ <= maxMinedChunkZ; chunkZ++) {
+                final MinedChunk minedChunk = chunkStorage.getElementAtChunk(chunkX, chunkZ);
+                if (minedChunk != null) {
+                    locations.add(new MinedChunkLocation(minedChunk));
+                }
+            }
+        }
 
         return locations;
     }

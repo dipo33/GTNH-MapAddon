@@ -1,55 +1,41 @@
 package io.github.dipo33.gtmapaddon.mined;
 
-import com.sinthoras.visualprospecting.Utils;
 import com.sinthoras.visualprospecting.integration.model.locations.IWaypointAndLocationProvider;
 import com.sinthoras.visualprospecting.integration.model.waypoints.Waypoint;
 import io.github.dipo33.gtmapaddon.Config;
 import io.github.dipo33.gtmapaddon.Reference;
+import io.github.dipo33.gtmapaddon.storage.MinedChunk;
 import net.minecraft.client.resources.I18n;
 
 public class MinedChunkLocation implements IWaypointAndLocationProvider {
 
-    private final int dimensionId;
-    private final int chunkX;
-    private final int chunkZ;
-    private final String minedBy;
+    private final MinedChunk minedChunk;
     private final int color;
 
     private boolean isActiveAsWaypoint;
 
-    public MinedChunkLocation(int dimensionId, int chunkX, int chunkZ, String minedBy) {
-        this.dimensionId = dimensionId;
-        this.chunkX = chunkX;
-        this.chunkZ = chunkZ;
-        this.minedBy = minedBy;
-        this.color = Config.getColorForUser(minedBy);
+    public MinedChunkLocation(MinedChunk minedChunk) {
+        this.minedChunk = minedChunk;
+        this.color = Config.getColorForUser(minedChunk.getMinedBy());
     }
 
     @Override
     public int getDimensionId() {
-        return dimensionId;
-    }
-
-    public int getIntBlockX() {
-        return Utils.coordChunkToBlock(chunkX) + 8;
+        return minedChunk.getDimensionId();
     }
 
     @Override
     public double getBlockX() {
-        return getIntBlockX() + 0.5;
-    }
-
-    public int getIntBlockZ() {
-        return Utils.coordChunkToBlock(chunkZ) + 8;
+        return minedChunk.getBlockX() + 0.5;
     }
 
     @Override
     public double getBlockZ() {
-        return getIntBlockZ() + 0.5;
+        return minedChunk.getBlockZ() + 0.5;
     }
 
     public String getMinedBy() {
-        return minedBy;
+        return minedChunk.getMinedBy();
     }
 
     public int getColor() {
@@ -58,8 +44,8 @@ public class MinedChunkLocation implements IWaypointAndLocationProvider {
 
     @Override
     public Waypoint toWaypoint() {
-        return new Waypoint(getIntBlockX(), 96, getIntBlockZ(), dimensionId,
-                I18n.format(Reference.MODID + ".tracked", chunkX, chunkZ),
+        return new Waypoint(minedChunk.getBlockX(), 96, minedChunk.getBlockZ(), minedChunk.getDimensionId(),
+                I18n.format(Reference.MODID + ".tracked", minedChunk.getChunkX(), minedChunk.getChunkZ()),
                 getColor());
     }
 
@@ -75,9 +61,9 @@ public class MinedChunkLocation implements IWaypointAndLocationProvider {
 
     @Override
     public void onWaypointUpdated(Waypoint waypoint) {
-        isActiveAsWaypoint = waypoint.dimensionId == dimensionId
-                && waypoint.blockX == getIntBlockX()
-                && waypoint.blockZ == getIntBlockZ();
+        isActiveAsWaypoint = waypoint.dimensionId == minedChunk.getDimensionId()
+                && waypoint.blockX == minedChunk.getBlockX()
+                && waypoint.blockZ == minedChunk.getBlockZ();
     }
 
     public String getMainHint() {

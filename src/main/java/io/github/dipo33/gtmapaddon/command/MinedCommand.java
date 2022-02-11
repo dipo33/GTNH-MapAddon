@@ -1,7 +1,8 @@
 package io.github.dipo33.gtmapaddon.command;
 
 import com.sinthoras.visualprospecting.Utils;
-import io.github.dipo33.gtmapaddon.GTMapAddonMod;
+import io.github.dipo33.gtmapaddon.storage.DimensionStorage;
+import io.github.dipo33.gtmapaddon.storage.MinedChunk;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,6 +13,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class MinedCommand implements ICommand {
+
+    public static final DimensionStorage<MinedChunk> MINED_CHUNKS_STORAGE = new DimensionStorage<>();
 
     private static final List<String> ALIASES = Collections.singletonList("mined");
 
@@ -35,8 +38,11 @@ public class MinedCommand implements ICommand {
         final ChunkCoordinates coordinates = sender.getPlayerCoordinates();
         final int chunkX = Utils.coordBlockToChunk(coordinates.posX);
         final int chunkZ = Utils.coordBlockToChunk(coordinates.posZ);
+        final int dimensionId = sender.getEntityWorld().provider.dimensionId;
+        final String minedBy = args.length == 0 ? sender.getCommandSenderName() : args[0];
 
-        GTMapAddonMod.info(String.format("Adding chunk (X: %d, Z: %d), isClientSide: %s", chunkX, chunkZ, sender.getEntityWorld().isRemote));
+        MINED_CHUNKS_STORAGE.getDimension(dimensionId)
+                .setElementAtChunk(chunkX, chunkZ, new MinedChunk(chunkX, chunkZ, dimensionId, minedBy));
     }
 
     @Override
