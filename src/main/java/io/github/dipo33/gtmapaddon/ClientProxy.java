@@ -11,8 +11,8 @@ import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
-import io.github.dipo33.gtmapaddon.mined.MinedChunkLayerManager;
-import io.github.dipo33.gtmapaddon.mined.MinedChunkLayerRenderer;
+import io.github.dipo33.gtmapaddon.render.journeymap.mined.MinedChunkLayerManager;
+import io.github.dipo33.gtmapaddon.render.journeymap.mined.MinedChunkLayerRenderer;
 
 public class ClientProxy extends CommonProxy {
 

@@ -1,4 +1,4 @@
-package io.github.dipo33.gtmapaddon.mined;
+package io.github.dipo33.gtmapaddon.render.journeymap.mined;
 
 import com.sinthoras.visualprospecting.integration.journeymap.drawsteps.ClickableDrawStep;
 import com.sinthoras.visualprospecting.integration.journeymap.render.WaypointProviderLayerRenderer;
