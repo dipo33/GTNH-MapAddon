@@ -19,7 +19,7 @@ public class MinedChunkLayerRenderer extends WaypointProviderLayerRenderer {
     protected List<? extends ClickableDrawStep> mapLocationProviderToDrawStep(List<? extends ILocationProvider> visibleElements) {
         final List<MinedChunkDrawStep> drawSteps = new ArrayList<>();
         visibleElements.stream()
-                .map(element -> (MinedChunkLocation) element)
+                .map(element -> (MinedChunkLocationProvider) element)
                 .forEach(location -> drawSteps.add(new MinedChunkDrawStep(location)));
         return drawSteps;
     }

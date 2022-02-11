@@ -7,14 +7,14 @@ import io.github.dipo33.gtmapaddon.Reference;
 import io.github.dipo33.gtmapaddon.storage.MinedChunk;
 import net.minecraft.client.resources.I18n;
 
-public class MinedChunkLocation implements IWaypointAndLocationProvider {
+public class MinedChunkLocationProvider implements IWaypointAndLocationProvider {
 
     private final MinedChunk minedChunk;
     private final int color;
 
     private boolean isActiveAsWaypoint;
 
-    public MinedChunkLocation(MinedChunk minedChunk) {
+    public MinedChunkLocationProvider(MinedChunk minedChunk) {
         this.minedChunk = minedChunk;
         this.color = Config.getColorForUser(minedChunk.getMinedBy());
     }

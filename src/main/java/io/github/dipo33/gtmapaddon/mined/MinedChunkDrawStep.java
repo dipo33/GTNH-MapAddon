@@ -16,13 +16,13 @@ public class MinedChunkDrawStep implements ClickableDrawStep {
 
     private static final ResourceLocation depletedTextureLocation = new ResourceLocation(Reference.MODID, "textures/depleted.png");
 
-    private final MinedChunkLocation location;
+    private final MinedChunkLocationProvider location;
 
     private double chunkSize;
     private double chunkX;
     private double chunkZ;
 
-    public MinedChunkDrawStep(MinedChunkLocation location) {
+    public MinedChunkDrawStep(MinedChunkLocationProvider location) {
         this.location = location;
     }
 

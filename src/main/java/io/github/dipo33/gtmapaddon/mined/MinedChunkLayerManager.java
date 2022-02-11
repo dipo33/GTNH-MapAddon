@@ -28,12 +28,12 @@ public class MinedChunkLayerManager extends WaypointProviderManager {
         final int maxMinedChunkZ = Utils.coordBlockToChunk(maxBlockZ);
         final ChunkStorage<MinedChunk> chunkStorage = MinedCommand.MINED_CHUNKS_STORAGE.getDimension(Minecraft.getMinecraft().thePlayer.dimension);
 
-        final List<MinedChunkLocation> locations = new ArrayList<>();
+        final List<MinedChunkLocationProvider> locations = new ArrayList<>();
         for (int chunkX = minMinedChunkX; chunkX <= maxMinedChunkX; chunkX++) {
             for (int chunkZ = minMinedChunkZ; chunkZ <= maxMinedChunkZ; chunkZ++) {
                 final MinedChunk minedChunk = chunkStorage.getElementAtChunk(chunkX, chunkZ);
                 if (minedChunk != null) {
-                    locations.add(new MinedChunkLocation(minedChunk));
+                    locations.add(new MinedChunkLocationProvider(minedChunk));
                 }
             }
         }
