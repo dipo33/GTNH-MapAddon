@@ -4,6 +4,7 @@ import com.sinthoras.visualprospecting.Utils;
 import com.sinthoras.visualprospecting.integration.model.locations.IWaypointAndLocationProvider;
 import com.sinthoras.visualprospecting.integration.model.waypoints.Waypoint;
 import io.github.dipo33.gtmapaddon.Config;
+import io.github.dipo33.gtmapaddon.Reference;
 import net.minecraft.client.resources.I18n;
 
 public class MinedChunkLocation implements IWaypointAndLocationProvider {
@@ -58,7 +59,7 @@ public class MinedChunkLocation implements IWaypointAndLocationProvider {
     @Override
     public Waypoint toWaypoint() {
         return new Waypoint(getIntBlockX(), 65, getIntBlockZ(), dimensionId,
-                I18n.format("visualprospecting.tracked", String.format("X: %d, Z: %d", chunkX, chunkZ)),
+                I18n.format(Reference.MODID + ".tracked", chunkX, chunkZ),
                 getColor());
     }
 

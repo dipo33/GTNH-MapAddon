@@ -6,7 +6,7 @@ import com.sinthoras.visualprospecting.integration.model.locations.IWaypointAndL
 import io.github.dipo33.gtmapaddon.Reference;
 import journeymap.client.render.map.GridRenderer;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.geom.Point2D;
@@ -44,7 +44,7 @@ public class MinedChunkDrawStep implements ClickableDrawStep {
     @Override
     public List<String> getTooltip() {
         final List<String> tooltip = new ArrayList<>();
-        tooltip.add("Mined by: " + EnumChatFormatting.GOLD + location.getMinedBy()); // TODO: localize
+        tooltip.add(I18n.format(Reference.MODID + ".mined_by", location.getMinedBy()));
 
         return tooltip;
     }
