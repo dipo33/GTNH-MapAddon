@@ -17,7 +17,7 @@ public class CommonProxy {
     // preInit "Run before anything else. Read your config, create blocks, items,
     // etc, and register them with the GameRegistry."
     public void preInit(FMLPreInitializationEvent event) {
-        Config.syncronizeConfiguration(event.getSuggestedConfigurationFile());
+        Config.synchronizeConfiguration(event.getSuggestedConfigurationFile());
 
         GTMapAddonMod.info(Config.greeting);
         GTMapAddonMod.info("I am " + Reference.MODNAME + " at version " + Reference.VERSION + " and group name " + Reference.GROUPNAME);
