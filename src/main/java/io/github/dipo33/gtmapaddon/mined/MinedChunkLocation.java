@@ -79,4 +79,8 @@ public class MinedChunkLocation implements IWaypointAndLocationProvider {
                 && waypoint.blockX == getIntBlockX()
                 && waypoint.blockZ == getIntBlockZ();
     }
+
+    public String getMainHint() {
+        return I18n.format(Reference.MODID + ".mined_by", getMinedBy());
+    }
 }
