@@ -36,5 +36,5 @@ public class MinedChunkLayerManager extends WaypointProviderManager {
         return locations;
     }
 
-    // TODO: Maybe also override `recacheVisibleElements`
+    // TODO: Maybe also override `needsRegenerateVisibleElements`
 }

@@ -59,7 +59,7 @@ public class MinedChunkDrawStep implements ClickableDrawStep {
 
     @Override
     public void onActionKeyPressed() {
-        // TODO: Maybe do something here ?
+        // TODO: Implement delete later on (Called when DELETE key is pressed)
     }
 
     @Override
