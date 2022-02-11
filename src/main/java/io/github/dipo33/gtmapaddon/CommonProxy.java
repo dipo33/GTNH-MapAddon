@@ -8,6 +8,7 @@ import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
+import io.github.dipo33.gtmapaddon.command.MinedCommand;
 
 public class CommonProxy {
 
@@ -30,8 +31,8 @@ public class CommonProxy {
     public void serverAboutToStart(FMLServerAboutToStartEvent event) {
     }
 
-    // register server commands in this event handler
     public void serverStarting(FMLServerStartingEvent event) {
+        event.registerServerCommand(new MinedCommand());
     }
 
     public void serverStarted(FMLServerStartedEvent event) {
