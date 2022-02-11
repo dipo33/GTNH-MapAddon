@@ -11,6 +11,8 @@ import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
+import io.github.dipo33.gtmapaddon.mined.MinedChunkLayerManager;
+import io.github.dipo33.gtmapaddon.mined.MinedChunkLayerRenderer;
 
 public class ClientProxy extends CommonProxy {
 
@@ -34,6 +36,9 @@ public class ClientProxy extends CommonProxy {
 
         VisualProspecting_API.LogicalClient.registerCustomButtonManager(minedChunksButtonManager);
         VisualProspecting_API.LogicalClient.registerJourneyMapButton(minedChunksButton);
+
+        VisualProspecting_API.LogicalClient.registerCustomLayer(MinedChunkLayerManager.instance);
+        VisualProspecting_API.LogicalClient.registerJourneyMapRenderer(new MinedChunkLayerRenderer());
     }
 
     public void serverAboutToStart(FMLServerAboutToStartEvent event) {
