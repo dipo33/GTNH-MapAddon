@@ -4,6 +4,7 @@ import com.sinthoras.visualprospecting.integration.DrawUtils;
 import com.sinthoras.visualprospecting.integration.journeymap.drawsteps.ClickableDrawStep;
 import com.sinthoras.visualprospecting.integration.model.locations.IWaypointAndLocationProvider;
 import io.github.dipo33.gtmapaddon.Reference;
+import journeymap.client.render.draw.DrawUtil;
 import journeymap.client.render.map.GridRenderer;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
@@ -38,11 +39,23 @@ public class MinedChunkDrawStep implements ClickableDrawStep {
         chunkZ = pixel.getY() - chunkSizeHalf;
 
         DrawUtils.drawQuad(depletedTextureLocation, chunkX, chunkZ, chunkSize, chunkSize, location.getColor(), 96);
+
+        if(location.isActiveAsWaypoint()) {
+            final int borderAlpha = 192;
+            final int color = 0xFFD700;
+            DrawUtil.drawRectangle(chunkX - blockSize, chunkZ - blockSize, chunkSize + blockSize, blockSize, color, borderAlpha);
+            DrawUtil.drawRectangle(chunkX + chunkSize, chunkZ - blockSize, blockSize, chunkSize + blockSize, color, borderAlpha);
+            DrawUtil.drawRectangle(chunkX, chunkZ + chunkSize, chunkSize + blockSize, blockSize, color, borderAlpha);
+            DrawUtil.drawRectangle(chunkX - blockSize, chunkZ, blockSize, chunkSize + blockSize, color, borderAlpha);
+        }
     }
 
     @Override
     public List<String> getTooltip() {
         final List<String> tooltip = new ArrayList<>();
+        if (location.isActiveAsWaypoint()) {
+            tooltip.add(location.getActiveWaypointHint());
+        }
         tooltip.add(location.getMainHint());
 
         return tooltip;

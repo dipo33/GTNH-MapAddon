@@ -6,8 +6,12 @@ import com.sinthoras.visualprospecting.integration.model.waypoints.Waypoint;
 import io.github.dipo33.gtmapaddon.Config;
 import io.github.dipo33.gtmapaddon.Reference;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.util.EnumChatFormatting;
 
 public class MinedChunkLocation implements IWaypointAndLocationProvider {
+
+
+    private static final String ACTIVE_WAYPOINT_HINT = EnumChatFormatting.GREEN + I18n.format(Reference.MODID + ".iswaypoint");
 
     private final int dimensionId;
     private final int chunkX;
@@ -78,6 +82,10 @@ public class MinedChunkLocation implements IWaypointAndLocationProvider {
         isActiveAsWaypoint = waypoint.dimensionId == dimensionId
                 && waypoint.blockX == getIntBlockX()
                 && waypoint.blockZ == getIntBlockZ();
+    }
+
+    public String getActiveWaypointHint() {
+        return ACTIVE_WAYPOINT_HINT;
     }
 
     public String getMainHint() {
