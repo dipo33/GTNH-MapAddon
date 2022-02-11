@@ -1,6 +1,8 @@
 package io.github.dipo33.gtmapaddon.command;
 
 import com.sinthoras.visualprospecting.Utils;
+import io.github.dipo33.gtmapaddon.GTMapAddonMod;
+import io.github.dipo33.gtmapaddon.network.AddMinedChunkMessage;
 import io.github.dipo33.gtmapaddon.storage.DimensionStorage;
 import io.github.dipo33.gtmapaddon.storage.MinedChunk;
 import net.minecraft.command.ICommand;
@@ -41,9 +43,9 @@ public class MinedCommand implements ICommand {
         final int dimensionId = sender.getEntityWorld().provider.dimensionId;
         final String minedBy = args.length == 0 ? sender.getCommandSenderName() : args[0];
 
-        MINED_CHUNKS_STORAGE.getDimension(dimensionId)
-                .setElementAtChunk(chunkX, chunkZ, new MinedChunk(chunkX, chunkZ, dimensionId, minedBy));
-        // TODO: sync
+        final MinedChunk minedChunk = new MinedChunk(chunkX, chunkZ, dimensionId, minedBy);
+        MINED_CHUNKS_STORAGE.getDimension(dimensionId).setElementAtChunk(chunkX, chunkZ, minedChunk);
+        GTMapAddonMod.NETWORK_CHANNEL.sendToAll(new AddMinedChunkMessage(minedChunk));
     }
 
     @Override

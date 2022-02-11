@@ -3,6 +3,8 @@ package io.github.dipo33.gtmapaddon;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.*;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,6 +12,8 @@ import org.apache.logging.log4j.Logger;
 public class GTMapAddonMod {
 
     private static final Logger LOG = LogManager.getLogger(Reference.MODID);
+
+    public static final SimpleNetworkWrapper NETWORK_CHANNEL = NetworkRegistry.INSTANCE.newSimpleChannel("dipoGTMapAddon");
 
     @SidedProxy(clientSide=Reference.GROUPNAME + ".ClientProxy", serverSide=Reference.GROUPNAME + ".CommonProxy")
     public static CommonProxy proxy;

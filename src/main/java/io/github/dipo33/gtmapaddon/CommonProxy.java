@@ -8,7 +8,9 @@ import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
+import cpw.mods.fml.relauncher.Side;
 import io.github.dipo33.gtmapaddon.command.MinedCommand;
+import io.github.dipo33.gtmapaddon.network.AddMinedChunkMessage;
 
 public class CommonProxy {
 
@@ -16,8 +18,7 @@ public class CommonProxy {
     // etc, and register them with the GameRegistry."
     public void preInit(FMLPreInitializationEvent event) {
         Config.synchronizeConfiguration(event.getSuggestedConfigurationFile());
-
-        GTMapAddonMod.info("I am " + Reference.MODNAME + " at version " + Reference.VERSION + " and group name " + Reference.GROUPNAME);
+        GTMapAddonMod.NETWORK_CHANNEL.registerMessage(AddMinedChunkMessage.Handler.class, AddMinedChunkMessage.class, 0, Side.CLIENT);
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes."
