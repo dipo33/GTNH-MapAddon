@@ -24,6 +24,10 @@ public class ChunkStorage<T> {
         chunks.put(Utils.chunkCoordsToKey(chunkX, chunkZ), element);
     }
 
+    public void removeElementAtChunk(int chunkX, int chunkZ) {
+        chunks.remove(Utils.chunkCoordsToKey(chunkX, chunkZ));
+    }
+
     public int getDimensionId() {
         return dimensionId;
     }

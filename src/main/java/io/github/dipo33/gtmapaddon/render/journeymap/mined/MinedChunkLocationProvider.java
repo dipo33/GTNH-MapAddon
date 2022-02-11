@@ -34,6 +34,14 @@ public class MinedChunkLocationProvider implements IWaypointAndLocationProvider 
         return minedChunk.getBlockZ() + 0.5;
     }
 
+    public int getChunkX() {
+        return minedChunk.getChunkX();
+    }
+
+    public int getChunkZ() {
+        return minedChunk.getChunkZ();
+    }
+
     public String getMinedBy() {
         return minedChunk.getMinedBy();
     }

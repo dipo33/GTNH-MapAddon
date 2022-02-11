@@ -43,6 +43,7 @@ public class MinedCommand implements ICommand {
 
         MINED_CHUNKS_STORAGE.getDimension(dimensionId)
                 .setElementAtChunk(chunkX, chunkZ, new MinedChunk(chunkX, chunkZ, dimensionId, minedBy));
+        // TODO: sync
     }
 
     @Override

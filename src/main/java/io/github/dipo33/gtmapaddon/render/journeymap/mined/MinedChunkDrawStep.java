@@ -4,6 +4,7 @@ import com.sinthoras.visualprospecting.integration.DrawUtils;
 import com.sinthoras.visualprospecting.integration.journeymap.drawsteps.ClickableDrawStep;
 import com.sinthoras.visualprospecting.integration.model.locations.IWaypointAndLocationProvider;
 import io.github.dipo33.gtmapaddon.Reference;
+import io.github.dipo33.gtmapaddon.command.MinedCommand;
 import journeymap.client.render.map.GridRenderer;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
@@ -59,7 +60,9 @@ public class MinedChunkDrawStep implements ClickableDrawStep {
 
     @Override
     public void onActionKeyPressed() {
-        // TODO: Implement delete later on (Called when DELETE key is pressed)
+        MinedCommand.MINED_CHUNKS_STORAGE.getDimension(location.getDimensionId())
+                .removeElementAtChunk(location.getChunkX(), location.getChunkZ());
+        // TODO: sync
     }
 
     @Override
