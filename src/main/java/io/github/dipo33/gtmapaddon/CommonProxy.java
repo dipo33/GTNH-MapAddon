@@ -11,14 +11,16 @@ import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.relauncher.Side;
 import io.github.dipo33.gtmapaddon.command.MinedCommand;
 import io.github.dipo33.gtmapaddon.network.AddMinedChunkMessage;
+import io.github.dipo33.gtmapaddon.network.RemoveMinedChunkClientMessage;
+import io.github.dipo33.gtmapaddon.network.RemoveMinedChunkServerMessage;
 
 public class CommonProxy {
 
-    // preInit "Run before anything else. Read your config, create blocks, items,
-    // etc, and register them with the GameRegistry."
     public void preInit(FMLPreInitializationEvent event) {
         Config.synchronizeConfiguration(event.getSuggestedConfigurationFile());
         GTMapAddonMod.NETWORK_CHANNEL.registerMessage(AddMinedChunkMessage.Handler.class, AddMinedChunkMessage.class, 0, Side.CLIENT);
+        GTMapAddonMod.NETWORK_CHANNEL.registerMessage(RemoveMinedChunkServerMessage.Handler.class, RemoveMinedChunkServerMessage.class, 1, Side.SERVER);
+        GTMapAddonMod.NETWORK_CHANNEL.registerMessage(RemoveMinedChunkClientMessage.Handler.class, RemoveMinedChunkClientMessage.class, 2, Side.CLIENT);
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes."

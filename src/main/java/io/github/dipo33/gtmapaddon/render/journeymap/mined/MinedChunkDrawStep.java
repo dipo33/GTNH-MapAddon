@@ -3,8 +3,10 @@ package io.github.dipo33.gtmapaddon.render.journeymap.mined;
 import com.sinthoras.visualprospecting.integration.DrawUtils;
 import com.sinthoras.visualprospecting.integration.journeymap.drawsteps.ClickableDrawStep;
 import com.sinthoras.visualprospecting.integration.model.locations.IWaypointAndLocationProvider;
+import io.github.dipo33.gtmapaddon.GTMapAddonMod;
 import io.github.dipo33.gtmapaddon.Reference;
 import io.github.dipo33.gtmapaddon.command.MinedCommand;
+import io.github.dipo33.gtmapaddon.network.RemoveMinedChunkServerMessage;
 import journeymap.client.render.map.GridRenderer;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
@@ -62,7 +64,7 @@ public class MinedChunkDrawStep implements ClickableDrawStep {
     public void onActionKeyPressed() {
         MinedCommand.MINED_CHUNKS_STORAGE.getDimension(location.getDimensionId())
                 .removeElementAtChunk(location.getChunkX(), location.getChunkZ());
-        // TODO: sync
+        GTMapAddonMod.NETWORK_CHANNEL.sendToServer(new RemoveMinedChunkServerMessage(location));
     }
 
     @Override
