@@ -58,7 +58,7 @@ public class MinedChunkLocation implements IWaypointAndLocationProvider {
 
     @Override
     public Waypoint toWaypoint() {
-        return new Waypoint(getIntBlockX(), 65, getIntBlockZ(), dimensionId,
+        return new Waypoint(getIntBlockX(), 96, getIntBlockZ(), dimensionId,
                 I18n.format(Reference.MODID + ".tracked", chunkX, chunkZ),
                 getColor());
     }
