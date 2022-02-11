@@ -1,8 +1,5 @@
 package io.github.dipo33.gtmapaddon;
 
-import com.sinthoras.visualprospecting.VisualProspecting_API;
-import com.sinthoras.visualprospecting.integration.journeymap.buttons.LayerButton;
-import com.sinthoras.visualprospecting.integration.model.buttons.ButtonManager;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -29,11 +26,7 @@ public class CommonProxy {
 
     // postInit "Handle interaction with other mods, complete your setup based on this."
     public void postInit(FMLPostInitializationEvent event) {
-        ButtonManager minedChunksButtonManager = new ButtonManager(Reference.MODID + ".button.minedChunks", "iconMinedChunks");
-        LayerButton minedChunksButton = new LayerButton(minedChunksButtonManager);
 
-        VisualProspecting_API.LogicalClient.registerCustomButtonManager(minedChunksButtonManager);
-        VisualProspecting_API.LogicalClient.registerJourneyMapButton(minedChunksButton);
     }
 
     public void serverAboutToStart(FMLServerAboutToStartEvent event) {

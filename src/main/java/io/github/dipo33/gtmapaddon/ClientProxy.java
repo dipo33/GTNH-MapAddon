@@ -1,12 +1,25 @@
 package io.github.dipo33.gtmapaddon;
 
-import cpw.mods.fml.common.event.*;
+import com.sinthoras.visualprospecting.VisualProspecting_API;
+import com.sinthoras.visualprospecting.integration.journeymap.buttons.LayerButton;
+import com.sinthoras.visualprospecting.integration.model.buttons.ButtonManager;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
+import cpw.mods.fml.common.event.FMLServerStartedEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.FMLServerStoppedEvent;
+import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 
 public class ClientProxy extends CommonProxy {
 
+    public static final ButtonManager minedChunksButtonManager = new ButtonManager(Reference.MODID + ".button.minedChunks", "iconMinedChunks");
+    public static final LayerButton minedChunksButton = new LayerButton(minedChunksButtonManager);
+
     // preInit "Run before anything else. Read your config, create blocks, items,
     // etc, and register them with the GameRegistry."
-    public void preInit(FMLPreInitializationEvent event) 	{
+    public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
     }
 
@@ -18,6 +31,9 @@ public class ClientProxy extends CommonProxy {
     // postInit "Handle interaction with other mods, complete your setup based on this."
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
+
+        VisualProspecting_API.LogicalClient.registerCustomButtonManager(minedChunksButtonManager);
+        VisualProspecting_API.LogicalClient.registerJourneyMapButton(minedChunksButton);
     }
 
     public void serverAboutToStart(FMLServerAboutToStartEvent event) {
