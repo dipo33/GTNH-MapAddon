@@ -2,7 +2,7 @@ package io.github.dipo33.gtmapaddon.storage;
 
 import com.sinthoras.visualprospecting.Utils;
 
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.Map;
 
 public class ChunkStorage<T> {
@@ -30,5 +30,9 @@ public class ChunkStorage<T> {
 
     public int getDimensionId() {
         return dimensionId;
+    }
+
+    public Collection<T> getAll() {
+        return chunks.values();
     }
 }

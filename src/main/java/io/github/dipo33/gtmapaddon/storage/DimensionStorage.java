@@ -1,6 +1,6 @@
 package io.github.dipo33.gtmapaddon.storage;
 
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.Map;
 
 public class DimensionStorage<T> {
@@ -17,5 +17,9 @@ public class DimensionStorage<T> {
         }
 
         return dimensions.get(dimensionId);
+    }
+
+    public Collection<ChunkStorage<T>> getAll() {
+        return dimensions.values();
     }
 }

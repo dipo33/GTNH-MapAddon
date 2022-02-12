@@ -5,8 +5,11 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.common.DimensionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.File;
 
 @Mod(modid = Reference.MODID, version = Reference.VERSION, name = Reference.MODNAME, acceptedMinecraftVersions = "[1.7.10]")
 public class GTMapAddonMod {
@@ -77,5 +80,13 @@ public class GTMapAddonMod {
 
     public static void error(String message) {
         LOG.error(message);
+    }
+
+    public static File getCurrentSaveModFile(String fileName) {
+        final File saveFolder = DimensionManager.getCurrentSaveRootDirectory();
+        final File saveModFolder = new File(String.join(File.separator, saveFolder.getAbsolutePath(), Reference.MODID, fileName));
+        saveModFolder.getParentFile().mkdirs();
+
+        return saveModFolder;
     }
 }
