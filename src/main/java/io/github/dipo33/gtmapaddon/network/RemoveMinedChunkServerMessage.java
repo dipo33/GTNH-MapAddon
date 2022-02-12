@@ -6,6 +6,7 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.github.dipo33.gtmapaddon.GTMapAddonMod;
 import io.github.dipo33.gtmapaddon.command.MinedCommand;
 import io.github.dipo33.gtmapaddon.render.journeymap.mined.MinedChunkLocationProvider;
+import io.github.dipo33.gtmapaddon.storage.MinedChunkSerializer;
 import io.netty.buffer.ByteBuf;
 
 public class RemoveMinedChunkServerMessage implements IMessage {
@@ -53,8 +54,9 @@ public class RemoveMinedChunkServerMessage implements IMessage {
 
         @Override
         public IMessage onMessage(RemoveMinedChunkServerMessage message, MessageContext ctx) {
-//            MinedCommand.MINED_CHUNKS_STORAGE.getDimension(message.dimensionId)
-//                    .removeElementAtChunk(message.chunkX, message.chunkZ);
+            MinedCommand.MINED_CHUNKS_STORAGE.getDimension(message.dimensionId)
+                    .removeElementAtChunk(message.chunkX, message.chunkZ);
+            MinedChunkSerializer.save();
             GTMapAddonMod.NETWORK_CHANNEL.sendToAll(new RemoveMinedChunkClientMessage(message));
 
             return null;

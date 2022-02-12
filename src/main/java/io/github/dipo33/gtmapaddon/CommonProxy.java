@@ -13,6 +13,7 @@ import io.github.dipo33.gtmapaddon.command.MinedCommand;
 import io.github.dipo33.gtmapaddon.network.AddMinedChunkMessage;
 import io.github.dipo33.gtmapaddon.network.RemoveMinedChunkClientMessage;
 import io.github.dipo33.gtmapaddon.network.RemoveMinedChunkServerMessage;
+import io.github.dipo33.gtmapaddon.storage.MinedChunkSerializer;
 
 public class CommonProxy {
 
@@ -42,6 +43,7 @@ public class CommonProxy {
     }
 
     public void serverStopping(FMLServerStoppingEvent event) {
+        MinedChunkSerializer.save();
     }
 
     public void serverStopped(FMLServerStoppedEvent event) {

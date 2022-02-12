@@ -5,6 +5,7 @@ import io.github.dipo33.gtmapaddon.GTMapAddonMod;
 import io.github.dipo33.gtmapaddon.network.AddMinedChunkMessage;
 import io.github.dipo33.gtmapaddon.storage.DimensionStorage;
 import io.github.dipo33.gtmapaddon.storage.MinedChunk;
+import io.github.dipo33.gtmapaddon.storage.MinedChunkSerializer;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
@@ -46,6 +47,7 @@ public class MinedCommand implements ICommand {
         final MinedChunk minedChunk = new MinedChunk(chunkX, chunkZ, dimensionId, minedBy);
         MINED_CHUNKS_STORAGE.getDimension(dimensionId).setElementAtChunk(chunkX, chunkZ, minedChunk);
         GTMapAddonMod.NETWORK_CHANNEL.sendToAll(new AddMinedChunkMessage(minedChunk));
+        MinedChunkSerializer.save();
     }
 
     @Override
