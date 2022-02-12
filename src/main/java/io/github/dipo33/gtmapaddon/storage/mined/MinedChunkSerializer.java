@@ -1,7 +1,9 @@
-package io.github.dipo33.gtmapaddon.storage;
+package io.github.dipo33.gtmapaddon.storage.mined;
 
 import io.github.dipo33.gtmapaddon.GTMapAddonMod;
 import io.github.dipo33.gtmapaddon.command.MinedCommand;
+import io.github.dipo33.gtmapaddon.storage.ChunkStorage;
+import io.github.dipo33.gtmapaddon.storage.DimensionStorage;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;

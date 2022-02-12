@@ -7,7 +7,7 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.github.dipo33.gtmapaddon.command.MinedCommand;
 import io.github.dipo33.gtmapaddon.storage.ChunkStorage;
 import io.github.dipo33.gtmapaddon.storage.DimensionStorage;
-import io.github.dipo33.gtmapaddon.storage.MinedChunk;
+import io.github.dipo33.gtmapaddon.storage.mined.MinedChunk;
 import io.netty.buffer.ByteBuf;
 
 public class SyncMinedChunksMessage implements IMessage {

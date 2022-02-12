@@ -1,4 +1,4 @@
-package io.github.dipo33.gtmapaddon.storage;
+package io.github.dipo33.gtmapaddon.storage.mined;
 
 import com.sinthoras.visualprospecting.Utils;
 

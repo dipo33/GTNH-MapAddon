@@ -6,7 +6,7 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.github.dipo33.gtmapaddon.GTMapAddonMod;
 import io.github.dipo33.gtmapaddon.command.MinedCommand;
 import io.github.dipo33.gtmapaddon.render.journeymap.mined.MinedChunkLocationProvider;
-import io.github.dipo33.gtmapaddon.storage.MinedChunkSerializer;
+import io.github.dipo33.gtmapaddon.storage.mined.MinedChunkSerializer;
 import io.netty.buffer.ByteBuf;
 
 public class RemoveMinedChunkServerMessage implements IMessage {

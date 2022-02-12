@@ -15,7 +15,7 @@ import io.github.dipo33.gtmapaddon.network.AddMinedChunkMessage;
 import io.github.dipo33.gtmapaddon.network.RemoveMinedChunkClientMessage;
 import io.github.dipo33.gtmapaddon.network.RemoveMinedChunkServerMessage;
 import io.github.dipo33.gtmapaddon.network.SyncMinedChunksMessage;
-import io.github.dipo33.gtmapaddon.storage.MinedChunkSerializer;
+import io.github.dipo33.gtmapaddon.storage.mined.MinedChunkSerializer;
 
 public class CommonProxy {
 

@@ -6,7 +6,7 @@ import com.sinthoras.visualprospecting.integration.model.locations.IWaypointAndL
 import io.github.dipo33.gtmapaddon.ClientProxy;
 import io.github.dipo33.gtmapaddon.command.MinedCommand;
 import io.github.dipo33.gtmapaddon.storage.ChunkStorage;
-import io.github.dipo33.gtmapaddon.storage.MinedChunk;
+import io.github.dipo33.gtmapaddon.storage.mined.MinedChunk;
 import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;
