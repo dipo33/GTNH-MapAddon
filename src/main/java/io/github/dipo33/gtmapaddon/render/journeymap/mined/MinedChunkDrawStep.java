@@ -17,7 +17,7 @@ import java.util.List;
 
 public class MinedChunkDrawStep implements ClickableDrawStep {
 
-    private static final ResourceLocation depletedTextureLocation = new ResourceLocation(Reference.MODID, "textures/depleted.png");
+    private static final ResourceLocation DEPLETED_TEXTURE_LOCATION = new ResourceLocation(Reference.MODID, "textures/depleted.png");
 
     private final MinedChunkLocationProvider location;
 
@@ -40,7 +40,7 @@ public class MinedChunkDrawStep implements ClickableDrawStep {
         chunkX = pixel.getX() - chunkSizeHalf;
         chunkZ = pixel.getY() - chunkSizeHalf;
 
-        DrawUtils.drawQuad(depletedTextureLocation, chunkX, chunkZ, chunkSize, chunkSize, location.getColor(), 96);
+        DrawUtils.drawQuad(DEPLETED_TEXTURE_LOCATION, chunkX, chunkZ, chunkSize, chunkSize, location.getColor(), 96);
     }
 
     @Override

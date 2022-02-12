@@ -16,8 +16,8 @@ import io.github.dipo33.gtmapaddon.render.journeymap.mined.MinedChunkLayerRender
 
 public class ClientProxy extends CommonProxy {
 
-    public static final ButtonManager minedChunksButtonManager = new ButtonManager(Reference.MODID + ".button.minedChunks", "iconMinedChunks");
-    public static final LayerButton minedChunksButton = new LayerButton(minedChunksButtonManager);
+    public static final ButtonManager MINED_CHUNKS_BUTTON_MANAGER = new ButtonManager(Reference.MODID + ".button.minedChunks", "iconMinedChunks");
+    public static final LayerButton MINED_CHUNKS_BUTTON = new LayerButton(MINED_CHUNKS_BUTTON_MANAGER);
 
     // preInit "Run before anything else. Read your config, create blocks, items,
     // etc, and register them with the GameRegistry."
@@ -34,8 +34,8 @@ public class ClientProxy extends CommonProxy {
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
 
-        VisualProspecting_API.LogicalClient.registerCustomButtonManager(minedChunksButtonManager);
-        VisualProspecting_API.LogicalClient.registerJourneyMapButton(minedChunksButton);
+        VisualProspecting_API.LogicalClient.registerCustomButtonManager(MINED_CHUNKS_BUTTON_MANAGER);
+        VisualProspecting_API.LogicalClient.registerJourneyMapButton(MINED_CHUNKS_BUTTON);
 
         VisualProspecting_API.LogicalClient.registerCustomLayer(MinedChunkLayerManager.instance);
         VisualProspecting_API.LogicalClient.registerJourneyMapRenderer(new MinedChunkLayerRenderer());

@@ -17,7 +17,7 @@ public class MinedChunkLayerManager extends WaypointProviderManager {
     public static final MinedChunkLayerManager instance = new MinedChunkLayerManager();
 
     public MinedChunkLayerManager() {
-        super(ClientProxy.minedChunksButtonManager);
+        super(ClientProxy.MINED_CHUNKS_BUTTON_MANAGER);
     }
 
     @Override
