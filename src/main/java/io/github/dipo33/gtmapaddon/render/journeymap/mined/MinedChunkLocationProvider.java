@@ -6,6 +6,7 @@ import io.github.dipo33.gtmapaddon.Config;
 import io.github.dipo33.gtmapaddon.Reference;
 import io.github.dipo33.gtmapaddon.storage.mined.MinedChunk;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.util.EnumChatFormatting;
 
 public class MinedChunkLocationProvider implements IWaypointAndLocationProvider {
 
@@ -75,6 +76,6 @@ public class MinedChunkLocationProvider implements IWaypointAndLocationProvider 
     }
 
     public String getMainHint() {
-        return I18n.format(Reference.MODID + ".mined_by", getMinedBy());
+        return I18n.format(Reference.MODID + ".mined_by", EnumChatFormatting.GOLD + getMinedBy());
     }
 }

@@ -1,3 +1,3 @@
 dipogtmapaddon.button.minedChunks=Show Mined Chunks
-dipogtmapaddon.mined_by=Mined By: §6%s
+dipogtmapaddon.mined_by=Mined By: %s
 dipogtmapaddon.tracked=Tracked Mined Chunk: (X: %d, Z: %d)
