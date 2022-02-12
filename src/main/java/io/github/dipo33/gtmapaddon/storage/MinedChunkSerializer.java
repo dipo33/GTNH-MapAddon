@@ -77,7 +77,11 @@ public class MinedChunkSerializer {
         final File mineChunksFile = GTMapAddonMod.getCurrentSaveModFile("minedchunks.dat");
 
         try {
-            MinedCommand.MINED_CHUNKS_STORAGE = deserialize(CompressedStreamTools.read(mineChunksFile));
+            if (mineChunksFile.exists()) {
+                MinedCommand.MINED_CHUNKS_STORAGE = deserialize(CompressedStreamTools.read(mineChunksFile));
+            } else {
+                MinedCommand.MINED_CHUNKS_STORAGE = new DimensionStorage<>();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
