@@ -5,6 +5,7 @@ import io.github.dipo33.gtmapaddon.command.MinedCommand;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.util.Constants;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,11 +44,40 @@ public class MinedChunkSerializer {
         return dataTag;
     }
 
+    private static DimensionStorage<MinedChunk> deserialize(NBTTagCompound dataTag) {
+        DimensionStorage<MinedChunk> dimensionStorage = new DimensionStorage<>();
+        for (int dimensionId : dataTag.getIntArray(Keys.DIMENSION_IDS)) {
+            ChunkStorage<MinedChunk> chunkStorage = dimensionStorage.getDimension(dimensionId);
+            NBTTagList chunksTag = dataTag.getTagList(Keys.DIMENSION + dimensionId, Constants.NBT.TAG_COMPOUND);
+
+            for (int i = 0; i < chunksTag.tagCount(); i++) {
+                NBTTagCompound chunkTag = chunksTag.getCompoundTagAt(i);
+
+                int chunkX = chunkTag.getInteger(Keys.CHUNK_X);
+                int chunkZ = chunkTag.getInteger(Keys.CHUNK_Z);
+                String minedBy = chunkTag.getString(Keys.MINED_BY);
+                chunkStorage.setElementAtChunk(chunkX, chunkZ, new MinedChunk(chunkX, chunkZ, dimensionId, minedBy));
+            }
+        }
+
+        return dimensionStorage;
+    }
+
     public static void save() {
         final File minedChunksFile = GTMapAddonMod.getCurrentSaveModFile("minedchunks.dat");
 
         try {
             CompressedStreamTools.safeWrite(MinedChunkSerializer.serialize(MinedCommand.MINED_CHUNKS_STORAGE), minedChunksFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void read() {
+        final File mineChunksFile = GTMapAddonMod.getCurrentSaveModFile("minedchunks.dat");
+
+        try {
+            MinedCommand.MINED_CHUNKS_STORAGE = deserialize(CompressedStreamTools.read(mineChunksFile));
         } catch (IOException e) {
             e.printStackTrace();
         }

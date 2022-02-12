@@ -37,6 +37,7 @@ public class CommonProxy {
 
     public void serverStarting(FMLServerStartingEvent event) {
         event.registerServerCommand(new MinedCommand());
+        MinedChunkSerializer.read();
     }
 
     public void serverStarted(FMLServerStartedEvent event) {
