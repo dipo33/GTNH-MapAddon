@@ -33,7 +33,9 @@ jobs:
         run: ./gradlew setupCIWorkspace
 
       - name: Build the mod
-        run: ./gradlew build
+        run: |
+          touch build/tmp/reobf/mixins.srg
+          ./gradlew build
 
       - name: Release under current tag
         uses: "marvinpinto/action-automatic-releases@latest"
@@ -58,4 +60,4 @@ jobs:
           ARTIFACT_VERSION: "${{ env.RELEASE_VERSION }}"
           REPOSITORY_NAME: "${{ env.REPOSITORY_NAME }}"
           REPOSITORY_OWNER: "${{ env.REPOSITORY_OWNER }}"
-    
+
