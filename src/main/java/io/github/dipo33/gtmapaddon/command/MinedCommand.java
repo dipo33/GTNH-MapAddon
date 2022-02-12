@@ -17,7 +17,7 @@ import java.util.List;
 
 public class MinedCommand implements ICommand {
 
-    public static final DimensionStorage<MinedChunk> MINED_CHUNKS_STORAGE = new DimensionStorage<>();
+    public static DimensionStorage<MinedChunk> MINED_CHUNKS_STORAGE;
 
     private static final List<String> ALIASES = Collections.singletonList("mined");
 
