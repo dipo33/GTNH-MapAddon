@@ -4,6 +4,7 @@ import com.sinthoras.visualprospecting.Utils;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ChunkStorage<T> {
 
@@ -13,7 +14,7 @@ public class ChunkStorage<T> {
 
     public ChunkStorage(int dimensionId) {
         this.dimensionId = dimensionId;
-        chunks = new HashMap<>();
+        chunks = new ConcurrentHashMap<>();
     }
 
     public T getElementAtChunk(int chunkX, int chunkZ) {
