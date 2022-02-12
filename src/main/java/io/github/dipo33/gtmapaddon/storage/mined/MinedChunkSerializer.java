@@ -1,8 +1,8 @@
 package io.github.dipo33.gtmapaddon.storage.mined;
 
 import io.github.dipo33.gtmapaddon.GTMapAddonMod;
-import io.github.dipo33.gtmapaddon.command.MinedCommand;
 import io.github.dipo33.gtmapaddon.storage.ChunkStorage;
+import io.github.dipo33.gtmapaddon.storage.DataCache;
 import io.github.dipo33.gtmapaddon.storage.DimensionStorage;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
@@ -69,7 +69,7 @@ public class MinedChunkSerializer {
         final File minedChunksFile = GTMapAddonMod.getCurrentSaveModFile("minedchunks.dat");
 
         try {
-            CompressedStreamTools.safeWrite(MinedChunkSerializer.serialize(MinedCommand.MINED_CHUNKS_STORAGE), minedChunksFile);
+            CompressedStreamTools.safeWrite(MinedChunkSerializer.serialize(DataCache.MINED_CHUNKS_STORAGE), minedChunksFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -80,9 +80,9 @@ public class MinedChunkSerializer {
 
         try {
             if (mineChunksFile.exists()) {
-                MinedCommand.MINED_CHUNKS_STORAGE = deserialize(CompressedStreamTools.read(mineChunksFile));
+                DataCache.MINED_CHUNKS_STORAGE = deserialize(CompressedStreamTools.read(mineChunksFile));
             } else {
-                MinedCommand.MINED_CHUNKS_STORAGE = new DimensionStorage<>();
+                DataCache.MINED_CHUNKS_STORAGE = new DimensionStorage<>();
             }
         } catch (IOException e) {
             e.printStackTrace();

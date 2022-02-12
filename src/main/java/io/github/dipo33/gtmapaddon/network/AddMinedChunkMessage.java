@@ -4,7 +4,7 @@ import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
-import io.github.dipo33.gtmapaddon.command.MinedCommand;
+import io.github.dipo33.gtmapaddon.storage.DataCache;
 import io.github.dipo33.gtmapaddon.storage.mined.MinedChunk;
 import io.netty.buffer.ByteBuf;
 
@@ -42,7 +42,7 @@ public class AddMinedChunkMessage implements IMessage {
         @Override
         public IMessage onMessage(AddMinedChunkMessage message, MessageContext ctx) {
             final MinedChunk minedChunk = message.minedChunk;
-            MinedCommand.MINED_CHUNKS_STORAGE.getDimension(minedChunk.getDimensionId())
+            DataCache.MINED_CHUNKS_STORAGE.getDimension(minedChunk.getDimensionId())
                     .setElementAtChunk(minedChunk.getChunkX(), minedChunk.getChunkZ(), minedChunk);
 
             return null;

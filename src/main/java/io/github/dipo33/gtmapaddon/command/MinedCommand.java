@@ -3,7 +3,7 @@ package io.github.dipo33.gtmapaddon.command;
 import com.sinthoras.visualprospecting.Utils;
 import io.github.dipo33.gtmapaddon.GTMapAddonMod;
 import io.github.dipo33.gtmapaddon.network.AddMinedChunkMessage;
-import io.github.dipo33.gtmapaddon.storage.DimensionStorage;
+import io.github.dipo33.gtmapaddon.storage.DataCache;
 import io.github.dipo33.gtmapaddon.storage.mined.MinedChunk;
 import io.github.dipo33.gtmapaddon.storage.mined.MinedChunkSerializer;
 import net.minecraft.command.ICommand;
@@ -16,8 +16,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class MinedCommand implements ICommand {
-
-    public static DimensionStorage<MinedChunk> MINED_CHUNKS_STORAGE;
 
     private static final List<String> ALIASES = Collections.singletonList("mined");
 
@@ -45,7 +43,7 @@ public class MinedCommand implements ICommand {
         final String minedBy = args.length == 0 ? sender.getCommandSenderName() : args[0];
 
         final MinedChunk minedChunk = new MinedChunk(chunkX, chunkZ, dimensionId, minedBy);
-        MINED_CHUNKS_STORAGE.getDimension(dimensionId).setElementAtChunk(chunkX, chunkZ, minedChunk);
+        DataCache.MINED_CHUNKS_STORAGE.getDimension(dimensionId).setElementAtChunk(chunkX, chunkZ, minedChunk);
         GTMapAddonMod.NETWORK_CHANNEL.sendToAll(new AddMinedChunkMessage(minedChunk));
         MinedChunkSerializer.save();
     }
