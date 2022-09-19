@@ -13,11 +13,15 @@ import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import io.github.dipo33.gtmapaddon.render.journeymap.mined.MinedChunkLayerManager;
 import io.github.dipo33.gtmapaddon.render.journeymap.mined.MinedChunkLayerRenderer;
+import io.github.dipo33.gtmapaddon.render.journeymap.owned.OwnedChunkLayerManager;
+import io.github.dipo33.gtmapaddon.render.journeymap.owned.OwnedChunkLayerRenderer;
 
 public class ClientProxy extends CommonProxy {
 
     public static final ButtonManager MINED_CHUNKS_BUTTON_MANAGER = new ButtonManager(Reference.MODID + ".button.minedChunks", "iconMinedChunks");
+    public static final ButtonManager OWNED_CHUNKS_BUTTON_MANAGER = new ButtonManager(Reference.MODID + ".button.ownedChunks", "iconOwnedChunks");
     public static final LayerButton MINED_CHUNKS_BUTTON = new LayerButton(MINED_CHUNKS_BUTTON_MANAGER);
+    public static final LayerButton OWNED_CHUNKS_BUTTON = new LayerButton(OWNED_CHUNKS_BUTTON_MANAGER);
 
     // preInit "Run before anything else. Read your config, create blocks, items,
     // etc, and register them with the GameRegistry."
@@ -35,10 +39,14 @@ public class ClientProxy extends CommonProxy {
         super.postInit(event);
 
         VisualProspecting_API.LogicalClient.registerCustomButtonManager(MINED_CHUNKS_BUTTON_MANAGER);
+        VisualProspecting_API.LogicalClient.registerCustomButtonManager(OWNED_CHUNKS_BUTTON_MANAGER);
         VisualProspecting_API.LogicalClient.registerJourneyMapButton(MINED_CHUNKS_BUTTON);
+        VisualProspecting_API.LogicalClient.registerJourneyMapButton(OWNED_CHUNKS_BUTTON);
 
         VisualProspecting_API.LogicalClient.registerCustomLayer(MinedChunkLayerManager.instance);
+        VisualProspecting_API.LogicalClient.registerCustomLayer(OwnedChunkLayerManager.instance);
         VisualProspecting_API.LogicalClient.registerJourneyMapRenderer(new MinedChunkLayerRenderer());
+        VisualProspecting_API.LogicalClient.registerJourneyMapRenderer(new OwnedChunkLayerRenderer());
     }
 
     public void serverAboutToStart(FMLServerAboutToStartEvent event) {

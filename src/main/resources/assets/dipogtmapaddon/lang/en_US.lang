@@ -1,3 +1,9 @@
 dipogtmapaddon.button.minedChunks=Show Mined Chunks
+dipogtmapaddon.button.ownedChunks=Show Claimed Chunks
+
 dipogtmapaddon.mined_by=Mined By: %s
 dipogtmapaddon.tracked=Tracked Mined Chunk: (X: %d, Z: %d)
+dipogtmapaddon.owned_by=Owned By: %s
+dipogtmapaddon.BUILD=Build Chunk
+dipogtmapaddon.FARM=Farm Chunk
+dipogtmapaddon.TRANSPORT=Transport Chunk
