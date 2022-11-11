@@ -15,6 +15,7 @@ import io.github.dipo33.gtmapaddon.network.AddMinedChunkMessage;
 import io.github.dipo33.gtmapaddon.network.RemoveMinedChunkClientMessage;
 import io.github.dipo33.gtmapaddon.network.RemoveMinedChunkServerMessage;
 import io.github.dipo33.gtmapaddon.network.SyncMinedChunksMessage;
+import io.github.dipo33.gtmapaddon.network.SyncOwnedChunksMessage;
 import io.github.dipo33.gtmapaddon.storage.mined.MinedChunkSerializer;
 
 public class CommonProxy {
@@ -25,6 +26,8 @@ public class CommonProxy {
         GTMapAddonMod.NETWORK_CHANNEL.registerMessage(RemoveMinedChunkServerMessage.Handler.class, RemoveMinedChunkServerMessage.class, 1, Side.SERVER);
         GTMapAddonMod.NETWORK_CHANNEL.registerMessage(RemoveMinedChunkClientMessage.Handler.class, RemoveMinedChunkClientMessage.class, 2, Side.CLIENT);
         GTMapAddonMod.NETWORK_CHANNEL.registerMessage(SyncMinedChunksMessage.Handler.class, SyncMinedChunksMessage.class, 3, Side.CLIENT);
+        
+        GTMapAddonMod.NETWORK_CHANNEL.registerMessage(SyncOwnedChunksMessage.Handler.class, SyncOwnedChunksMessage.class, 4, Side.CLIENT);
     }
 
     public void init(FMLInitializationEvent event) {
