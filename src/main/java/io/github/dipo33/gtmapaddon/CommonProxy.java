@@ -10,8 +10,10 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.relauncher.Side;
+import io.github.dipo33.gtmapaddon.command.ChunkCommand;
 import io.github.dipo33.gtmapaddon.command.MinedCommand;
 import io.github.dipo33.gtmapaddon.network.AddMinedChunkMessage;
+import io.github.dipo33.gtmapaddon.network.BoughtChunkMessage;
 import io.github.dipo33.gtmapaddon.network.RemoveMinedChunkClientMessage;
 import io.github.dipo33.gtmapaddon.network.RemoveMinedChunkServerMessage;
 import io.github.dipo33.gtmapaddon.network.SyncMinedChunksMessage;
@@ -27,8 +29,9 @@ public class CommonProxy {
         GTMapAddonMod.NETWORK_CHANNEL.registerMessage(RemoveMinedChunkServerMessage.Handler.class, RemoveMinedChunkServerMessage.class, 1, Side.SERVER);
         GTMapAddonMod.NETWORK_CHANNEL.registerMessage(RemoveMinedChunkClientMessage.Handler.class, RemoveMinedChunkClientMessage.class, 2, Side.CLIENT);
         GTMapAddonMod.NETWORK_CHANNEL.registerMessage(SyncMinedChunksMessage.Handler.class, SyncMinedChunksMessage.class, 3, Side.CLIENT);
-        
-        GTMapAddonMod.NETWORK_CHANNEL.registerMessage(SyncOwnedChunksMessage.Handler.class, SyncOwnedChunksMessage.class, 4, Side.CLIENT);
+
+        GTMapAddonMod.NETWORK_CHANNEL.registerMessage(BoughtChunkMessage.Handler.class, BoughtChunkMessage.class, 4, Side.CLIENT);
+        GTMapAddonMod.NETWORK_CHANNEL.registerMessage(SyncOwnedChunksMessage.Handler.class, SyncOwnedChunksMessage.class, 5, Side.CLIENT);
     }
 
     public void init(FMLInitializationEvent event) {
@@ -44,6 +47,7 @@ public class CommonProxy {
 
     public void serverStarting(FMLServerStartingEvent event) {
         event.registerServerCommand(new MinedCommand());
+        event.registerServerCommand(new ChunkCommand());
         MinedChunkSerializer.read();
         OwnedChunkSerializer.read();
     }
