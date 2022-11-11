@@ -20,9 +20,19 @@ public class OwnedChunkLayerManager extends WaypointProviderManager {
     protected List<? extends IWaypointAndLocationProvider> generateVisibleElements(int minBlockX, int minBlockZ, int maxBlockX, int maxBlockZ) {
         final List<OwnedChunkLocationProvider> locations = new ArrayList<>();
         locations.add(new OwnedChunkLocationProvider(new OwnedChunk(0, 0, 0, "psuchtak", OwnedChunk.Status.BUILD)));
-        locations.add(new OwnedChunkLocationProvider(new OwnedChunk(1, 0, 0, "DirtyFaced", OwnedChunk.Status.FARM)));
-        locations.add(new OwnedChunkLocationProvider(new OwnedChunk(2, 0, 0, "RainDrop_x", OwnedChunk.Status.TRANSPORT)));
-        locations.add(new OwnedChunkLocationProvider(new OwnedChunk(3, 0, 0, "fb", OwnedChunk.Status.TRANSPORT)));
+        locations.add(new OwnedChunkLocationProvider(new OwnedChunk(1, 0, 0, "DirtyFaced", OwnedChunk.Status.BUILD)));
+        locations.add(new OwnedChunkLocationProvider(new OwnedChunk(2, 0, 0, "RainDrop_x", OwnedChunk.Status.BUILD)));
+        locations.add(new OwnedChunkLocationProvider(new OwnedChunk(3, 0, 0, "fb", OwnedChunk.Status.BUILD)));
+
+        locations.add(new OwnedChunkLocationProvider(new OwnedChunk(0, 1, 0, "psuchtak", OwnedChunk.Status.FARM)));
+        locations.add(new OwnedChunkLocationProvider(new OwnedChunk(1, 1, 0, "DirtyFaced", OwnedChunk.Status.FARM)));
+        locations.add(new OwnedChunkLocationProvider(new OwnedChunk(2, 1, 0, "RainDrop_x", OwnedChunk.Status.FARM)));
+        locations.add(new OwnedChunkLocationProvider(new OwnedChunk(3, 1, 0, "fb", OwnedChunk.Status.FARM)));
+
+        locations.add(new OwnedChunkLocationProvider(new OwnedChunk(0, 2, 0, "psuchtak", OwnedChunk.Status.TRANSPORT)));
+        locations.add(new OwnedChunkLocationProvider(new OwnedChunk(1, 2, 0, "DirtyFaced", OwnedChunk.Status.TRANSPORT)));
+        locations.add(new OwnedChunkLocationProvider(new OwnedChunk(2, 2, 0, "RainDrop_x", OwnedChunk.Status.TRANSPORT)));
+        locations.add(new OwnedChunkLocationProvider(new OwnedChunk(3, 2, 0, "fb", OwnedChunk.Status.TRANSPORT)));
 
         return locations;
     }

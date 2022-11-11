@@ -3,7 +3,6 @@ package io.github.dipo33.gtmapaddon.render.journeymap.owned;
 import com.sinthoras.visualprospecting.integration.DrawUtils;
 import io.github.dipo33.gtmapaddon.Reference;
 import io.github.dipo33.gtmapaddon.render.journeymap.ChunkDrawStep;
-import io.github.dipo33.gtmapaddon.storage.owned.OwnedChunk;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.ArrayList;
@@ -11,9 +10,10 @@ import java.util.List;
 
 public class OwnedChunkDrawStep extends ChunkDrawStep<OwnedChunkLocationProvider> {
 
-    private static final ResourceLocation BUILD_CHUNK_TEXTURE_LOCATION = new ResourceLocation(Reference.MODID, "textures/build.png");
-    private static final ResourceLocation FARM_CHUNK_TEXTURE_LOCATION = new ResourceLocation(Reference.MODID, "textures/farm.png");
-    private static final ResourceLocation TRANSPORT_CHUNK_TEXTURE_LOCATION = new ResourceLocation(Reference.MODID, "textures/transport.png");
+    private static final ResourceLocation PICKAXE_HEAD = new ResourceLocation(Reference.MODID, "textures/pickaxe_head.png");
+    private static final ResourceLocation HOE_HEAD = new ResourceLocation(Reference.MODID, "textures/hoe_head.png");
+    private static final ResourceLocation TOOL_STICK = new ResourceLocation(Reference.MODID, "textures/tool_stick.png");
+    private static final ResourceLocation GEAR = new ResourceLocation(Reference.MODID, "textures/gear.png");
 
     public OwnedChunkDrawStep(OwnedChunkLocationProvider location) {
         super(location);
@@ -21,11 +21,19 @@ public class OwnedChunkDrawStep extends ChunkDrawStep<OwnedChunkLocationProvider
 
     @Override
     public void draw(double chunkSize, double chunkX, double chunkZ) {
-        final ResourceLocation statusTexture = location.getStatus() == OwnedChunk.Status.BUILD ? location.getStatus() == OwnedChunk.Status.FARM ?
-                BUILD_CHUNK_TEXTURE_LOCATION :
-                FARM_CHUNK_TEXTURE_LOCATION :
-                TRANSPORT_CHUNK_TEXTURE_LOCATION;
-        DrawUtils.drawQuad(statusTexture, chunkX, chunkZ, chunkSize, chunkSize, location.getColor(), 96);
+        switch (location.getStatus()) {
+            case BUILD:
+                DrawUtils.drawQuad(TOOL_STICK, chunkX, chunkZ, chunkSize, chunkSize, 0xFFFFFF, 1);
+                DrawUtils.drawQuad(PICKAXE_HEAD, chunkX, chunkZ, chunkSize, chunkSize, location.getColor(), 1);
+                break;
+            case FARM:
+                DrawUtils.drawQuad(TOOL_STICK, chunkX, chunkZ, chunkSize, chunkSize, 0xFFFFFF, 1);
+                DrawUtils.drawQuad(HOE_HEAD, chunkX, chunkZ, chunkSize, chunkSize, location.getColor(), 1);
+                break;
+            case TRANSPORT:
+                DrawUtils.drawQuad(GEAR, chunkX, chunkZ, chunkSize, chunkSize, location.getColor(), 1);
+                break;
+        }
     }
 
     @Override
