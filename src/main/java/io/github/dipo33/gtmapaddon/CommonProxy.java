@@ -11,7 +11,6 @@ import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.relauncher.Side;
 import io.github.dipo33.gtmapaddon.command.ChunkCommand;
-import io.github.dipo33.gtmapaddon.command.MinedCommand;
 import io.github.dipo33.gtmapaddon.network.AddMinedChunkMessage;
 import io.github.dipo33.gtmapaddon.network.BoughtChunkMessage;
 import io.github.dipo33.gtmapaddon.network.RemoveMinedChunkClientMessage;
@@ -46,8 +45,8 @@ public class CommonProxy {
     }
 
     public void serverStarting(FMLServerStartingEvent event) {
-        event.registerServerCommand(new MinedCommand());
-        event.registerServerCommand(new ChunkCommand());
+        event.registerServerCommand(ChunkCommand.command);
+
         MinedChunkSerializer.read();
         OwnedChunkSerializer.read();
     }
