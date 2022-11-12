@@ -40,10 +40,9 @@ public class AddMinedChunkMessage implements IMessage {
     public static final class Handler implements IMessageHandler<AddMinedChunkMessage, IMessage> {
 
         @Override
-        public IMessage onMessage(AddMinedChunkMessage message, MessageContext ctx) {
-            final MinedChunk minedChunk = message.minedChunk;
-            DataCache.MINED_CHUNKS_STORAGE.getDimension(minedChunk.getDimensionId())
-                    .setElementAtChunk(minedChunk.getChunkX(), minedChunk.getChunkZ(), minedChunk);
+        public IMessage onMessage(AddMinedChunkMessage msg, MessageContext ctx) {
+            final MinedChunk chunk = msg.minedChunk;
+            DataCache.MINED_CHUNKS_STORAGE.put(chunk.getDimensionId(), chunk.getChunkX(), chunk.getChunkZ(), chunk);
 
             return null;
         }

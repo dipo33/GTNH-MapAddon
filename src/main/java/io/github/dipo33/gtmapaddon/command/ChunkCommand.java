@@ -10,9 +10,7 @@ import io.github.dipo33.gtmapaddon.network.AddMinedChunkMessage;
 import io.github.dipo33.gtmapaddon.network.BoughtChunkMessage;
 import io.github.dipo33.gtmapaddon.storage.DataCache;
 import io.github.dipo33.gtmapaddon.storage.mined.MinedChunk;
-import io.github.dipo33.gtmapaddon.storage.mined.MinedChunkSerializer;
 import io.github.dipo33.gtmapaddon.storage.owned.OwnedChunk;
-import io.github.dipo33.gtmapaddon.storage.owned.OwnedChunkSerializer;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChunkCoordinates;
@@ -43,9 +41,9 @@ public class ChunkCommand {
         final String owner = sender.getCommandSenderName();
         
         final OwnedChunk ownedChunk = new OwnedChunk(chunkX, chunkZ, dimensionId, owner, status);
-        DataCache.OWNED_CHUNKS_STORAGE.getDimension(dimensionId).setElementAtChunk(chunkX, chunkZ, ownedChunk);
+        DataCache.OWNED_CHUNKS_STORAGE.put(dimensionId, chunkX, chunkZ, ownedChunk);
         GTMapAddonMod.NETWORK_CHANNEL.sendToAll(new BoughtChunkMessage(ownedChunk));
-        OwnedChunkSerializer.save();
+        DataCache.OWNED_CHUNKS_SERIALIZER.save();
 
         GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.chunkBought", status.name().toLowerCase(), chunkX, chunkZ, 100);
     }
@@ -58,9 +56,9 @@ public class ChunkCommand {
         final String minedBy = arguments.getOfflinePlayer(0);
 
         final MinedChunk minedChunk = new MinedChunk(chunkX, chunkZ, dimensionId, minedBy);
-        DataCache.MINED_CHUNKS_STORAGE.getDimension(dimensionId).setElementAtChunk(chunkX, chunkZ, minedChunk);
+        DataCache.MINED_CHUNKS_STORAGE.put(dimensionId, chunkX, chunkZ, minedChunk);
         GTMapAddonMod.NETWORK_CHANNEL.sendToAll(new AddMinedChunkMessage(minedChunk));
-        MinedChunkSerializer.save();
+        DataCache.MINED_CHUNKS_SERIALIZER.save();
         
         GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.chunkMarked", chunkX, chunkZ, minedBy);
     }

@@ -34,8 +34,7 @@ public class MinedChunkDrawStep extends ChunkDrawStep<MinedChunkLocationProvider
 
     @Override
     public void onActionKeyPressed() {
-        DataCache.MINED_CHUNKS_STORAGE.getDimension(location.getDimensionId())
-                .removeElementAtChunk(location.getChunkX(), location.getChunkZ());
+        DataCache.MINED_CHUNKS_STORAGE.remove(location.getDimensionId(), location.getChunkX(), location.getChunkZ());
         GTMapAddonMod.NETWORK_CHANNEL.sendToServer(new RemoveMinedChunkServerMessage(location));
     }
 }

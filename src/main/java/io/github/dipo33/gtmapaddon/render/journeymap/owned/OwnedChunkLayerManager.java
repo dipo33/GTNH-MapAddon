@@ -4,7 +4,6 @@ import com.sinthoras.visualprospecting.Utils;
 import com.sinthoras.visualprospecting.integration.model.layers.WaypointProviderManager;
 import com.sinthoras.visualprospecting.integration.model.locations.IWaypointAndLocationProvider;
 import io.github.dipo33.gtmapaddon.ClientProxy;
-import io.github.dipo33.gtmapaddon.storage.ChunkStorage;
 import io.github.dipo33.gtmapaddon.storage.DataCache;
 import io.github.dipo33.gtmapaddon.storage.owned.OwnedChunk;
 import net.minecraft.client.Minecraft;
@@ -26,12 +25,12 @@ public class OwnedChunkLayerManager extends WaypointProviderManager {
         final int minOwnedChunkZ = Utils.coordBlockToChunk(minBlockZ);
         final int maxOwnedChunkX = Utils.coordBlockToChunk(maxBlockX);
         final int maxOwnedChunkZ = Utils.coordBlockToChunk(maxBlockZ);
-        final ChunkStorage<OwnedChunk> chunkStorage = DataCache.OWNED_CHUNKS_STORAGE.getDimension(Minecraft.getMinecraft().thePlayer.dimension);
+        final int dimensionId = Minecraft.getMinecraft().thePlayer.dimension;
         
         final List<OwnedChunkLocationProvider> locations = new ArrayList<>();
         for (int chunkX = minOwnedChunkX; chunkX <= maxOwnedChunkX; chunkX++) {
             for (int chunkZ = minOwnedChunkZ; chunkZ <= maxOwnedChunkZ; chunkZ++) {
-                final OwnedChunk ownedChunk = chunkStorage.getElementAtChunk(chunkX, chunkZ);
+                final OwnedChunk ownedChunk = DataCache.OWNED_CHUNKS_STORAGE.get(dimensionId, chunkX, chunkZ);
                 if (ownedChunk != null) {
                     locations.add(new OwnedChunkLocationProvider(ownedChunk));
                 }
