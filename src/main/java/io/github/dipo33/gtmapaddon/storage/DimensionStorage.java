@@ -13,11 +13,7 @@ public class DimensionStorage<T> {
     }
 
     public ChunkStorage<T> getDimension(int dimensionId) {
-        if (!dimensions.containsKey(dimensionId)) {
-            dimensions.put(dimensionId, new ChunkStorage<>(dimensionId));
-        }
-
-        return dimensions.get(dimensionId);
+        return dimensions.computeIfAbsent(dimensionId, ChunkStorage::new);
     }
 
     public Collection<ChunkStorage<T>> getAll() {
