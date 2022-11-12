@@ -47,6 +47,5 @@ public class OwnedChunkDrawStep extends ChunkDrawStep<OwnedChunkLocationProvider
 
     @Override
     public void onActionKeyPressed() {
-        // TODO
     }
 }
