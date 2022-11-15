@@ -27,7 +27,9 @@ public class ChunkCommand {
                                         .build(ChunkCommand::buyCommand)
                             ).addSubCommand(SubCommandFactory
                                         .createSubCommand("mark-as-mined")
-                                        .addOfflinePlayerArgument("mined-by").defaultsToSender().build()
+                                        .addOfflinePlayerArgument("mined-by")
+                                                    .setDefaultFactory(ICommandSender::getCommandSenderName)
+                                                    .build()
                                         .build(ChunkCommand::markAsMined)
                             ).build()
                 );

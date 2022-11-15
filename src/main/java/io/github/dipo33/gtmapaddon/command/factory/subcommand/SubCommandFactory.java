@@ -9,6 +9,7 @@ import io.github.dipo33.gtmapaddon.command.factory.argument.Argument;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgumentFactory;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgumentList;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayerMP;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,7 @@ public class SubCommandFactory implements ISubCommandFactory, WithSubCommandsOnl
     }
 
     @Override
-    public ArgPlayer.Factory addPlayerArgument(String name) {
+    public ArgumentFactory<EntityPlayerMP> addPlayerArgument(String name) {
         ArgPlayer arg = new ArgPlayer(name);
         arguments.add(arg);
 
@@ -59,7 +60,7 @@ public class SubCommandFactory implements ISubCommandFactory, WithSubCommandsOnl
     }
 
     @Override
-    public ArgOfflinePlayer.Factory addOfflinePlayerArgument(String name) {
+    public ArgumentFactory<String> addOfflinePlayerArgument(String name) {
         ArgOfflinePlayer arg = new ArgOfflinePlayer(name);
         arguments.add(arg);
 

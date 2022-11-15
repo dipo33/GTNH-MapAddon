@@ -1,7 +1,6 @@
 package io.github.dipo33.gtmapaddon.command.factory.argument;
 
 import io.github.dipo33.gtmapaddon.command.factory.subcommand.WithArguments;
-import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.PlayerSelector;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -12,25 +11,13 @@ import java.util.List;
 
 public class ArgPlayer extends Argument<EntityPlayerMP> {
 
-    private boolean defaultsToSender = false;
-
     public ArgPlayer(String name) {
         super(name);
     }
 
     @Override
-    public boolean isRequired() {
-        return super.isRequired() && !defaultsToSender;
-    }
-
-    public void setDefaultsToSender(boolean defaultsToSender) {
-        this.defaultsToSender = defaultsToSender;
-    }
-
-    @Override
     public boolean fill(String value, ICommandSender sender) {
-        final EntityPlayerMP player = defaultsToSender ?
-                    CommandBase.getPlayer(sender, value) : PlayerSelector.matchOnePlayer(sender, value);
+        final EntityPlayerMP player = PlayerSelector.matchOnePlayer(sender, value);
         super.set(player);
 
         return player != null;
@@ -53,25 +40,7 @@ public class ArgPlayer extends Argument<EntityPlayerMP> {
     }
 
     @Override
-    public Factory getFactory(WithArguments commandFactory) {
-        return new Factory(this, commandFactory);
-    }
-
-    public static class Factory extends ArgumentFactory<EntityPlayerMP> {
-
-        public Factory(ArgPlayer argument, WithArguments commandFactory) {
-            super(argument, commandFactory);
-        }
-
-        public Factory defaultsToSender() {
-            ((ArgPlayer) super.argument).setDefaultsToSender(true);
-
-            return this;
-        }
-
-        @Override
-        public WithArguments build() {
-            return super.build();
-        }
+    public ArgumentFactory<EntityPlayerMP> getFactory(WithArguments commandFactory) {
+        return new ArgumentFactory<>(this, commandFactory);
     }
 }

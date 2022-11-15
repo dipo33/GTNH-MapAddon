@@ -1,6 +1,9 @@
 package io.github.dipo33.gtmapaddon.command.factory.argument;
 
 import io.github.dipo33.gtmapaddon.command.factory.subcommand.WithArguments;
+import net.minecraft.command.ICommandSender;
+
+import java.util.function.Function;
 
 public class ArgumentFactory<T> {
     protected final Argument<T> argument;
@@ -13,6 +16,12 @@ public class ArgumentFactory<T> {
 
     public ArgumentFactory<T> setDefault(T value) {
         argument.setDefault(value);
+
+        return this;
+    }
+
+    public ArgumentFactory<T> setDefaultFactory(Function<ICommandSender, T> defaultFactory) {
+        argument.setDefaultFactory(defaultFactory);
 
         return this;
     }

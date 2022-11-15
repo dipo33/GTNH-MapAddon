@@ -9,27 +9,13 @@ import java.util.List;
 
 public class ArgOfflinePlayer extends Argument<String> {
 
-    private boolean defaultsToSender = false;
-
     public ArgOfflinePlayer(String name) {
         super(name);
     }
 
     @Override
-    public boolean isRequired() {
-        return super.isRequired() && !defaultsToSender;
-    }
-
-    public void setDefaultsToSender(boolean defaultsToSender) {
-        this.defaultsToSender = defaultsToSender;
-    }
-
-    @Override
     public boolean fill(String value, ICommandSender sender) {
         super.set(value);
-        if (this.defaultsToSender) {
-            super.setDefault(sender.getCommandSenderName());
-        }
 
         return true;
     }
@@ -51,25 +37,7 @@ public class ArgOfflinePlayer extends Argument<String> {
     }
 
     @Override
-    public Factory getFactory(WithArguments commandFactory) {
-        return new Factory(this, commandFactory);
-    }
-
-    public static class Factory extends ArgumentFactory<String> {
-
-        public Factory(ArgOfflinePlayer argument, WithArguments commandFactory) {
-            super(argument, commandFactory);
-        }
-
-        public Factory defaultsToSender() {
-            ((ArgOfflinePlayer) super.argument).setDefaultsToSender(true);
-
-            return this;
-        }
-
-        @Override
-        public WithArguments build() {
-            return super.build();
-        }
+    public ArgumentFactory<String> getFactory(WithArguments commandFactory) {
+        return new ArgumentFactory<>(this, commandFactory);
     }
 }

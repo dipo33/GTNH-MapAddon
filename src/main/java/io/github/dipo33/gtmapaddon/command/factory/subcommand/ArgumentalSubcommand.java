@@ -69,7 +69,7 @@ public class ArgumentalSubcommand extends SubCommand {
                 return;
             } else {
                 boolean success = args.length <= i ?
-                            argument.fill(null, sender) : argument.fill(args[i], sender);
+                            argument.fillDefaults(sender) : argument.fill(args[i], sender);
                 if (!success) {
                     sendInvalidUsage(sender, processedArgs, "Error: " + argument.getError());
                     return;
