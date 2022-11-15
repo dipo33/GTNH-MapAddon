@@ -1,4 +1,4 @@
-package io.github.dipo33.gtmapaddon.storage.owned;
+package io.github.dipo33.gtmapaddon.data.entity;
 
 import com.sinthoras.visualprospecting.Utils;
 import io.github.dipo33.gtmapaddon.storage.serializable.SerializableChunkEntry;
@@ -70,13 +70,13 @@ public class OwnedChunk implements SerializableChunkEntry<OwnedChunk> {
         NBTTagCompound tag = new NBTTagCompound();
         tag.setInteger(Keys.STATUS, chunk.getStatus().ordinal());
         tag.setString(Keys.OWNER, chunk.getOwner());
-        
+
         return tag;
     }
 
     @Override
     public OwnedChunk deserialize(NBTBase tagBase, int dimensionId, int chunkX, int chunkZ) {
-        NBTTagCompound tag = (NBTTagCompound) tagBase; 
+        NBTTagCompound tag = (NBTTagCompound) tagBase;
         String owner = tag.getString(Keys.OWNER);
         OwnedChunk.Status status = OwnedChunk.Status.values()[tag.getInteger(Keys.STATUS)];
 

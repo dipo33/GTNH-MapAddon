@@ -5,7 +5,7 @@ import com.sinthoras.visualprospecting.integration.model.layers.WaypointProvider
 import com.sinthoras.visualprospecting.integration.model.locations.IWaypointAndLocationProvider;
 import io.github.dipo33.gtmapaddon.ClientProxy;
 import io.github.dipo33.gtmapaddon.storage.DataCache;
-import io.github.dipo33.gtmapaddon.storage.mined.MinedChunk;
+import io.github.dipo33.gtmapaddon.data.entity.MinedChunk;
 import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;

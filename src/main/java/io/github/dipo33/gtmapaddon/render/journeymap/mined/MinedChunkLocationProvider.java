@@ -4,7 +4,7 @@ import com.sinthoras.visualprospecting.integration.model.locations.IWaypointAndL
 import com.sinthoras.visualprospecting.integration.model.waypoints.Waypoint;
 import io.github.dipo33.gtmapaddon.Config;
 import io.github.dipo33.gtmapaddon.Reference;
-import io.github.dipo33.gtmapaddon.storage.mined.MinedChunk;
+import io.github.dipo33.gtmapaddon.data.entity.MinedChunk;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.EnumChatFormatting;
 

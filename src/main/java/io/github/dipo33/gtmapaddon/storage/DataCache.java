@@ -1,7 +1,7 @@
 package io.github.dipo33.gtmapaddon.storage;
 
-import io.github.dipo33.gtmapaddon.storage.mined.MinedChunk;
-import io.github.dipo33.gtmapaddon.storage.owned.OwnedChunk;
+import io.github.dipo33.gtmapaddon.data.entity.MinedChunk;
+import io.github.dipo33.gtmapaddon.data.entity.OwnedChunk;
 import io.github.dipo33.gtmapaddon.storage.serializable.Serializer;
 
 public class DataCache {

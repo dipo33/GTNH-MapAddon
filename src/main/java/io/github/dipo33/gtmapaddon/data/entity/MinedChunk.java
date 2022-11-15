@@ -1,4 +1,4 @@
-package io.github.dipo33.gtmapaddon.storage.mined;
+package io.github.dipo33.gtmapaddon.data.entity;
 
 import com.sinthoras.visualprospecting.Utils;
 import io.github.dipo33.gtmapaddon.storage.serializable.SerializableChunkEntry;

@@ -5,7 +5,7 @@ import com.sinthoras.visualprospecting.integration.model.layers.WaypointProvider
 import com.sinthoras.visualprospecting.integration.model.locations.IWaypointAndLocationProvider;
 import io.github.dipo33.gtmapaddon.ClientProxy;
 import io.github.dipo33.gtmapaddon.storage.DataCache;
-import io.github.dipo33.gtmapaddon.storage.owned.OwnedChunk;
+import io.github.dipo33.gtmapaddon.data.entity.OwnedChunk;
 import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class OwnedChunkLayerManager extends WaypointProviderManager {
         final int maxOwnedChunkX = Utils.coordBlockToChunk(maxBlockX);
         final int maxOwnedChunkZ = Utils.coordBlockToChunk(maxBlockZ);
         final int dimensionId = Minecraft.getMinecraft().thePlayer.dimension;
-        
+
         final List<OwnedChunkLocationProvider> locations = new ArrayList<>();
         for (int chunkX = minOwnedChunkX; chunkX <= maxOwnedChunkX; chunkX++) {
             for (int chunkZ = minOwnedChunkZ; chunkZ <= maxOwnedChunkZ; chunkZ++) {
