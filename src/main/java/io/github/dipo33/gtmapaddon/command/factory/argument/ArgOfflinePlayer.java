@@ -21,8 +21,8 @@ public class ArgOfflinePlayer extends Argument<String> {
     }
 
     @Override
-    public String getUsage() {
-        return String.format("[<%s>]", getName());
+    public String getUsageInternal() {
+        return String.format("<%s>", getName());
     }
 
     @Override

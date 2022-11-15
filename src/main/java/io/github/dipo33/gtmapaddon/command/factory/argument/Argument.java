@@ -56,7 +56,12 @@ public abstract class Argument<T> {
         return true;
     }
 
-    public abstract String getUsage();
+    public final String getUsage() {
+        String usage = this.getUsageInternal();
+        return this.isRequired() ? usage : "[" + usage + "]";
+    }
+
+    protected abstract String getUsageInternal();
 
     public abstract String getError();
 

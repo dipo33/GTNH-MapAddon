@@ -29,7 +29,7 @@ public class ArgEnum<E extends Enum<E>> extends Argument<Enum<E>> {
     }
 
     @Override
-    public String getUsage() {
+    public String getUsageInternal() {
         final StringBuilder builder = new StringBuilder("<");
 
         E[] options = clazz.getEnumConstants();

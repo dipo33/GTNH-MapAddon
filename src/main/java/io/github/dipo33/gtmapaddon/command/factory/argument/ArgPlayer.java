@@ -24,7 +24,7 @@ public class ArgPlayer extends Argument<EntityPlayerMP> {
     }
 
     @Override
-    public String getUsage() {
+    public String getUsageInternal() {
         return String.format("<%s>", getName());
     }
 

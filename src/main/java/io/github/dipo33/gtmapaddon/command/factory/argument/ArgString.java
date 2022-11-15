@@ -20,7 +20,7 @@ public class ArgString extends Argument<String> {
     }
 
     @Override
-    public String getUsage() {
+    public String getUsageInternal() {
         return String.format("<%s>", getName());
     }
 

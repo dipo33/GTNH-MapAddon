@@ -24,7 +24,7 @@ public class ArgInt extends Argument<Integer> {
     }
 
     @Override
-    public String getUsage() {
+    public String getUsageInternal() {
         return String.format("<%s>", getName());
     }
 
