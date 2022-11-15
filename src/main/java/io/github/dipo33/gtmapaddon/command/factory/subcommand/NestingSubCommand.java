@@ -1,4 +1,4 @@
-package io.github.dipo33.gtmapaddon.command.factory;
+package io.github.dipo33.gtmapaddon.command.factory.subcommand;
 
 import net.minecraft.command.ICommandSender;
 

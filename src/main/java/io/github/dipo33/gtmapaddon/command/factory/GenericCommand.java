@@ -1,5 +1,6 @@
 package io.github.dipo33.gtmapaddon.command.factory;
 
+import io.github.dipo33.gtmapaddon.command.factory.subcommand.SubCommand;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;

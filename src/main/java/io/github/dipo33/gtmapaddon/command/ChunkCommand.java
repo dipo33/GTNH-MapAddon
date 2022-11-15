@@ -4,7 +4,7 @@ import com.sinthoras.visualprospecting.Utils;
 import io.github.dipo33.gtmapaddon.GTMapAddonMod;
 import io.github.dipo33.gtmapaddon.GeneralUtils;
 import io.github.dipo33.gtmapaddon.command.factory.CommandFactory;
-import io.github.dipo33.gtmapaddon.command.factory.SubCommandFactory;
+import io.github.dipo33.gtmapaddon.command.factory.subcommand.SubCommandFactory;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgumentList;
 import io.github.dipo33.gtmapaddon.network.AddMinedChunkMessage;
 import io.github.dipo33.gtmapaddon.network.BoughtChunkMessage;

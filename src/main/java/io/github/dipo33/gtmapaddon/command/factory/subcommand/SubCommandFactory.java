@@ -1,4 +1,4 @@
-package io.github.dipo33.gtmapaddon.command.factory;
+package io.github.dipo33.gtmapaddon.command.factory.subcommand;
 
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgEnum;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgInt;

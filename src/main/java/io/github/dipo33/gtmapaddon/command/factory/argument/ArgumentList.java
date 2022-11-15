@@ -24,11 +24,11 @@ public class ArgumentList {
     public EntityPlayerMP getPlayer(int index) {
         return ((ArgPlayer) arguments.get(index)).get();
     }
-    
+
     public String getOfflinePlayer(int index) {
         return ((ArgOfflinePlayer) arguments.get(index)).get();
     }
-    
+
     public String getString(int index) {
         return ((ArgString) arguments.get(index)).get();
     }

@@ -1,13 +1,13 @@
 package io.github.dipo33.gtmapaddon.command.factory.argument;
 
-import io.github.dipo33.gtmapaddon.command.factory.WithArguments;
+import io.github.dipo33.gtmapaddon.command.factory.subcommand.WithArguments;
 import net.minecraft.command.ICommandSender;
 
 import java.util.Collections;
 import java.util.List;
 
 public class ArgString extends Argument<String> {
-    
+
     public ArgString(String name) {
         super(name);
     }
@@ -15,7 +15,7 @@ public class ArgString extends Argument<String> {
     @Override
     public boolean fill(String value, ICommandSender sender) {
         super.set(value);
-        
+
         return true;
     }
 

@@ -1,13 +1,13 @@
 package io.github.dipo33.gtmapaddon.command.factory.argument;
 
-import io.github.dipo33.gtmapaddon.command.factory.WithArguments;
+import io.github.dipo33.gtmapaddon.command.factory.subcommand.WithArguments;
 import net.minecraft.command.ICommandSender;
 
 import java.util.Collections;
 import java.util.List;
 
 public class ArgInt extends Argument<Integer> {
-    
+
     public ArgInt(String name) {
         super(name);
     }

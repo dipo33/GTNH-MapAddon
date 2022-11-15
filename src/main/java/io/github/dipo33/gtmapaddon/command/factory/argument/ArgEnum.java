@@ -1,6 +1,6 @@
 package io.github.dipo33.gtmapaddon.command.factory.argument;
 
-import io.github.dipo33.gtmapaddon.command.factory.WithArguments;
+import io.github.dipo33.gtmapaddon.command.factory.subcommand.WithArguments;
 import net.minecraft.command.ICommandSender;
 
 import java.util.Arrays;

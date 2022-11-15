@@ -1,4 +1,4 @@
-package io.github.dipo33.gtmapaddon.command.factory;
+package io.github.dipo33.gtmapaddon.command.factory.subcommand;
 
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgumentFactory;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgumentList;

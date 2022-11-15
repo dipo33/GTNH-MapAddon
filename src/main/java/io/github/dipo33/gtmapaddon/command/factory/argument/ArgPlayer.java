@@ -1,6 +1,6 @@
 package io.github.dipo33.gtmapaddon.command.factory.argument;
 
-import io.github.dipo33.gtmapaddon.command.factory.WithArguments;
+import io.github.dipo33.gtmapaddon.command.factory.subcommand.WithArguments;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.PlayerSelector;
@@ -11,9 +11,9 @@ import scala.actors.threadpool.Arrays;
 import java.util.List;
 
 public class ArgPlayer extends Argument<EntityPlayerMP> {
-    
+
     private boolean defaultsToSender = false;
-    
+
     public ArgPlayer(String name) {
         super(name);
     }
@@ -56,16 +56,16 @@ public class ArgPlayer extends Argument<EntityPlayerMP> {
     public Factory getFactory(WithArguments commandFactory) {
         return new Factory(this, commandFactory);
     }
-    
+
     public static class Factory extends ArgumentFactory<EntityPlayerMP> {
 
         public Factory(ArgPlayer argument, WithArguments commandFactory) {
             super(argument, commandFactory);
         }
-        
+
         public Factory defaultsToSender() {
             ((ArgPlayer) super.argument).setDefaultsToSender(true);
-            
+
             return this;
         }
 
