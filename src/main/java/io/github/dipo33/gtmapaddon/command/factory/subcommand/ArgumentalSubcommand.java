@@ -62,6 +62,8 @@ public class ArgumentalSubcommand extends SubCommand {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args, List<String> processedArgs) {
+        ArgumentList argumentList = new ArgumentList();
+
         for (int i = 0; i < arguments.size(); ++i) {
             Argument<?> argument = arguments.get(i);
             if (args.length <= i && argument.isRequired()) {
@@ -74,9 +76,11 @@ public class ArgumentalSubcommand extends SubCommand {
                     sendInvalidUsage(sender, processedArgs, "Error: " + argument.getError());
                     return;
                 }
+
+                argumentList.append(argument.get());
             }
         }
 
-        processor.accept(new ArgumentList(arguments), sender);
+        processor.accept(argumentList, sender);
     }
 }

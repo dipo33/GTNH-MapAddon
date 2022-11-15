@@ -6,30 +6,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArgumentList {
-    private final List<Argument<?>> arguments;
+    private final List<Object> arguments;
 
-    public ArgumentList(List<Argument<?>> arguments) {
-        this.arguments = new ArrayList<>(arguments);
+    public ArgumentList() {
+        this.arguments = new ArrayList<>();
+    }
+
+    public void append(Object argument) {
+        arguments.add(argument);
     }
 
     public int getInt(int index) {
-        return ((ArgInt) arguments.get(index)).get();
+        return (int) arguments.get(index);
     }
 
     public <E extends Enum<E>> E getEnum(int index) {
         //noinspection unchecked
-        return (E) ((ArgEnum<E>) arguments.get(index)).get();
+        return (E) arguments.get(index);
     }
 
     public EntityPlayerMP getPlayer(int index) {
-        return ((ArgPlayer) arguments.get(index)).get();
+        return (EntityPlayerMP) arguments.get(index);
     }
 
     public String getOfflinePlayer(int index) {
-        return ((ArgOfflinePlayer) arguments.get(index)).get();
+        return (String) arguments.get(index);
     }
 
     public String getString(int index) {
-        return ((ArgString) arguments.get(index)).get();
+        return (String) arguments.get(index);
     }
 }
