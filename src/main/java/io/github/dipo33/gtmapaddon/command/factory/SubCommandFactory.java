@@ -17,7 +17,7 @@ import java.util.function.BiConsumer;
 public class SubCommandFactory implements WithSubCommands, WithArguments {
 
     private final String name;
-    private final List<AbstractSubCommand> subCommands = new ArrayList<>();
+    private final List<SubCommand> subCommands = new ArrayList<>();
     private final List<Argument<?>> arguments = new ArrayList<>();
 
     private SubCommandFactory(String name) {
@@ -29,7 +29,7 @@ public class SubCommandFactory implements WithSubCommands, WithArguments {
     }
 
     @Override
-    public WithSubCommands addSubCommand(AbstractSubCommand subCommand) {
+    public WithSubCommands addSubCommand(SubCommand subCommand) {
         subCommands.add(subCommand);
         return this;
     }
@@ -46,7 +46,7 @@ public class SubCommandFactory implements WithSubCommands, WithArguments {
     public <E extends Enum<E>> ArgumentFactory<Enum<E>> addEnumArgument(String name, Class<E> clazz) {
         ArgEnum<E> arg = new ArgEnum<>(name, clazz);
         arguments.add(arg);
-        
+
         return arg.getFactory(this);
     }
 
@@ -70,17 +70,17 @@ public class SubCommandFactory implements WithSubCommands, WithArguments {
     public ArgumentFactory<String> addStringArgument(String name) {
         ArgString arg = new ArgString(name);
         arguments.add(arg);
-        
+
         return arg.getFactory(this);
     }
 
     @Override
-    public AbstractSubCommand build(BiConsumer<ArgumentList, ICommandSender> processor) {
-        return new SubCommand(name, arguments, processor);
+    public SubCommand build(BiConsumer<ArgumentList, ICommandSender> processor) {
+        return new ArgumentalSubcommand(name, arguments, processor);
     }
 
     @Override
-    public AbstractSubCommand build() {
+    public SubCommand build() {
         return new NestingSubCommand(name, subCommands);
     }
 }

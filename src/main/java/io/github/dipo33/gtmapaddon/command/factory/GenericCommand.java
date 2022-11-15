@@ -12,10 +12,10 @@ import java.util.List;
 public class GenericCommand implements ICommand {
 
     private final List<String> aliases;
-    private final AbstractSubCommand command;
+    private final SubCommand command;
     private final boolean onlyPlayer;
 
-    public GenericCommand(AbstractSubCommand command, boolean onlyPlayer) {
+    public GenericCommand(SubCommand command, boolean onlyPlayer) {
         this.aliases = Collections.singletonList(command.getName());
         this.command = command;
         this.onlyPlayer = onlyPlayer;

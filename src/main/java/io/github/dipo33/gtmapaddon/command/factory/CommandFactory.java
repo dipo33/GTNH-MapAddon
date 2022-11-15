@@ -17,7 +17,7 @@ public class CommandFactory {
         return this;
     }
 
-    public ICommand addSubCommand(AbstractSubCommand subCommand) {
+    public ICommand addSubCommand(SubCommand subCommand) {
         subCommand.setMainCommand(subCommand);
         return new GenericCommand(subCommand, onlyPlayer);
     }

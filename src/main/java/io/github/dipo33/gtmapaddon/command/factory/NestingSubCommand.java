@@ -6,19 +6,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class NestingSubCommand extends AbstractSubCommand {
+public class NestingSubCommand extends SubCommand {
 
-    private final List<AbstractSubCommand> subCommands;
+    private final List<SubCommand> subCommands;
 
-    public NestingSubCommand(String name, List<AbstractSubCommand> subCommands) {
+    public NestingSubCommand(String name, List<SubCommand> subCommands) {
         super(name);
         this.subCommands = new ArrayList<>(subCommands);
     }
 
     @Override
-    public void setMainCommand(AbstractSubCommand command) {
+    public void setMainCommand(SubCommand command) {
         this.command = command;
-        for (AbstractSubCommand subCommand : subCommands) {
+        for (SubCommand subCommand : subCommands) {
             subCommand.setMainCommand(command);
         }
     }
@@ -26,12 +26,12 @@ public class NestingSubCommand extends AbstractSubCommand {
     @Override
     public List<String> getCommandUsages() {
         List<String> usages = new ArrayList<>();
-        for (AbstractSubCommand subCommand : subCommands) {
+        for (SubCommand subCommand : subCommands) {
             for (String usage : subCommand.getCommandUsages()) {
                 usages.add(getName() + " " + usage);
             }
         }
-        
+
         return usages;
     }
 
@@ -40,9 +40,9 @@ public class NestingSubCommand extends AbstractSubCommand {
         if (args.length == 0) {
             return getCommandUsages();
         }
-        
+
         List<String> usages = new ArrayList<>();
-        for (AbstractSubCommand subCommand : subCommands) {
+        for (SubCommand subCommand : subCommands) {
             if (subCommand.getName().equalsIgnoreCase(args[0])) {
                 final List<String> subUsages = subCommand.getCommandUsages(Arrays.copyOfRange(args, 1, args.length));
                 for (String usage : subUsages) {
@@ -50,14 +50,14 @@ public class NestingSubCommand extends AbstractSubCommand {
                 }
             }
         }
-        
+
         return usages;
     }
 
     @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args) {
         if (args.length > 1) {
-            for (AbstractSubCommand subCommand : subCommands) {
+            for (SubCommand subCommand : subCommands) {
                 if (subCommand.getName().equalsIgnoreCase(args[0])) {
                     return subCommand.addTabCompletionOptions(sender, Arrays.copyOfRange(args, 1, args.length));
                 }
@@ -65,13 +65,13 @@ public class NestingSubCommand extends AbstractSubCommand {
         } else  {
             String cmd = args.length == 0 ? "" : args[0].toLowerCase();
             List<String> completions = new ArrayList<>();
-            
-            for (AbstractSubCommand subCommand : subCommands) {
+
+            for (SubCommand subCommand : subCommands) {
                 if (subCommand.getName().startsWith(cmd)) {
                     completions.add(subCommand.getName());
                 }
             }
-            
+
             return completions;
         }
         return null;
@@ -82,13 +82,13 @@ public class NestingSubCommand extends AbstractSubCommand {
         if (index == 0) {
             return false;
         }
-        
-        for (AbstractSubCommand subCommand : subCommands) {
+
+        for (SubCommand subCommand : subCommands) {
             if (subCommand.getName().equalsIgnoreCase(args[0])) {
                 return isUsernameIndex(Arrays.copyOfRange(args, 1, args.length), index - 1);
             }
         }
-        
+
         return false;
     }
 
@@ -98,15 +98,15 @@ public class NestingSubCommand extends AbstractSubCommand {
             sendInvalidUsage(sender, processedArgs, "Error: Not enough arguments");
             return;
         }
-        
-        for (AbstractSubCommand subCommand : subCommands) {
+
+        for (SubCommand subCommand : subCommands) {
             if (subCommand.getName().equalsIgnoreCase(args[0])) {
                 processedArgs.add(args[0]);
                 subCommand.processCommand(sender, Arrays.copyOfRange(args, 1, args.length), processedArgs);
                 return;
             }
         }
-        
+
         sendInvalidUsage(sender, processedArgs, "Error: Invalid sub-command");
     }
 }

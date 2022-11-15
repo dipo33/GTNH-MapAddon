@@ -14,10 +14,10 @@ public interface WithArguments {
     <E extends Enum<E>> ArgumentFactory<Enum<E>> addEnumArgument(String name, Class<E> clazz);
 
     ArgumentFactory<EntityPlayerMP> addPlayerArgument(String name);
-    
+
     ArgumentFactory<String> addOfflinePlayerArgument(String name);
-    
+
     ArgumentFactory<String> addStringArgument(String name);
 
-    AbstractSubCommand build(BiConsumer<ArgumentList, ICommandSender> processor);
+    SubCommand build(BiConsumer<ArgumentList, ICommandSender> processor);
 }
