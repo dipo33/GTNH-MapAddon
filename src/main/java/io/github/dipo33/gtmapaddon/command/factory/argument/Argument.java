@@ -20,8 +20,8 @@ public abstract class Argument<T> {
         return this.name;
     }
 
-    public boolean isOptional() {
-        return this.defaultValue != null;
+    public boolean isRequired() {
+        return this.defaultValue == null;
     }
 
     public T get() {

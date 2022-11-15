@@ -16,8 +16,8 @@ public class ArgOfflinePlayer extends Argument<String> {
     }
 
     @Override
-    public boolean isOptional() {
-        return super.isOptional() || defaultsToSender;
+    public boolean isRequired() {
+        return super.isRequired() && !defaultsToSender;
     }
 
     public void setDefaultsToSender(boolean defaultsToSender) {

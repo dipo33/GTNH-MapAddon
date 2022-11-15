@@ -64,7 +64,7 @@ public class ArgumentalSubcommand extends SubCommand {
     public void processCommand(ICommandSender sender, String[] args, List<String> processedArgs) {
         for (int i = 0; i < arguments.size(); ++i) {
             Argument<?> argument = arguments.get(i);
-            if (args.length <= i && !argument.isOptional()) {
+            if (args.length <= i && argument.isRequired()) {
                 sendInvalidUsage(sender, processedArgs, "Error: Not enough arguments");
                 return;
             } else {
