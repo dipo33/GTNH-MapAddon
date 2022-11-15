@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-public class SubCommandFactory implements WithSubCommands, WithArguments {
+public class SubCommandFactory implements ISubCommandFactory, WithSubCommandsOnly {
 
     private final String name;
     private final List<SubCommand> subCommands = new ArrayList<>();
@@ -24,12 +24,12 @@ public class SubCommandFactory implements WithSubCommands, WithArguments {
         this.name = name;
     }
 
-    public static SubCommandFactory createSubCommand(String name) {
+    public static ISubCommandFactory createSubCommand(String name) {
         return new SubCommandFactory(name);
     }
 
     @Override
-    public WithSubCommands addSubCommand(SubCommand subCommand) {
+    public WithSubCommandsOnly addSubCommand(SubCommand subCommand) {
         subCommands.add(subCommand);
         return this;
     }
