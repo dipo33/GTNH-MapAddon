@@ -48,6 +48,7 @@ public class CommonProxy {
 
         DataCache.MINED_CHUNKS_SERIALIZER.read();
         DataCache.OWNED_CHUNKS_SERIALIZER.read();
+        DataCache.PRIZE_LIST_SERIALIZER.read();
     }
 
     public void serverStarted(FMLServerStartedEvent event) {
@@ -56,6 +57,7 @@ public class CommonProxy {
     public void serverStopping(FMLServerStoppingEvent event) {
         DataCache.MINED_CHUNKS_SERIALIZER.save();
         DataCache.OWNED_CHUNKS_SERIALIZER.save();
+        DataCache.PRIZE_LIST_SERIALIZER.save();
     }
 
     public void serverStopped(FMLServerStoppedEvent event) {

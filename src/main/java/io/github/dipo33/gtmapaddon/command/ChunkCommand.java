@@ -4,16 +4,17 @@ import com.sinthoras.visualprospecting.Utils;
 import io.github.dipo33.gtmapaddon.GTMapAddonMod;
 import io.github.dipo33.gtmapaddon.GeneralUtils;
 import io.github.dipo33.gtmapaddon.command.factory.CommandFactory;
-import io.github.dipo33.gtmapaddon.command.factory.subcommand.SubCommandFactory;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgumentList;
+import io.github.dipo33.gtmapaddon.command.factory.subcommand.SubCommandFactory;
+import io.github.dipo33.gtmapaddon.data.entity.MinedChunk;
+import io.github.dipo33.gtmapaddon.data.entity.OwnedChunk;
 import io.github.dipo33.gtmapaddon.network.AddMinedChunkMessage;
 import io.github.dipo33.gtmapaddon.network.BoughtChunkMessage;
 import io.github.dipo33.gtmapaddon.storage.DataCache;
-import io.github.dipo33.gtmapaddon.data.entity.MinedChunk;
-import io.github.dipo33.gtmapaddon.data.entity.OwnedChunk;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraftforge.common.DimensionManager;
 
 public class ChunkCommand {
 
@@ -31,6 +32,23 @@ public class ChunkCommand {
                                                     .setDefaultFactory(ICommandSender::getCommandSenderName)
                                                     .build()
                                         .build(ChunkCommand::markAsMined)
+                            ).addSubCommand(SubCommandFactory
+                                        .createSubCommand("price")
+                                        .addSubCommand(SubCommandFactory
+                                                    .createSubCommand("get")
+                                                    .addIntArgument("dimensionId")
+                                                                .setDefaultFactory(sender -> sender.getEntityWorld().provider.dimensionId)
+                                                                .build()
+                                                    .build(ChunkCommand::getPrices)
+                                        ).addSubCommand(SubCommandFactory
+                                                    .createSubCommand("set")
+                                                    .addIntArgument("price").build()
+                                                    .addEnumArgument("type", OwnedChunk.Status.class).build()
+                                                    .addIntArgument("dimensionId")
+                                                                .setDefaultFactory(sender -> sender.getEntityWorld().provider.dimensionId)
+                                                                .build()
+                                                    .build(ChunkCommand::setPrice)
+                                        ).build()
                             ).build()
                 );
 
@@ -63,5 +81,28 @@ public class ChunkCommand {
         DataCache.MINED_CHUNKS_SERIALIZER.save();
 
         GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.chunkMarked", chunkX, chunkZ, minedBy);
+    }
+
+    public static void setPrice(ArgumentList argumentList, ICommandSender sender) {
+        final int price = argumentList.getInt(0);
+        final OwnedChunk.Status status = argumentList.getEnum(1);
+        final int dimensionId = argumentList.getInt(2);
+        final String dimensionName = DimensionManager.getWorld(dimensionId).provider.getDimensionName();
+
+        DataCache.PRIZE_LIST.setPrice(dimensionId, status, price);
+
+        GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.priceSet", status.name().toLowerCase(), dimensionName, price);
+    }
+
+    public static void getPrices(ArgumentList argumentList, ICommandSender sender) {
+        final int dimensionId = argumentList.getInt(0);
+        final String dimensionName = DimensionManager.getWorld(dimensionId).provider.getDimensionName();
+        GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.pricesGet", dimensionName);
+
+        for (OwnedChunk.Status status : OwnedChunk.Status.values()) {
+            final int price = DataCache.PRIZE_LIST.getPrice(dimensionId, status);
+            final String priceString = price < 0 ? "???" : Integer.toString(price);
+            GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.pricesGetType", priceString, status.name().toLowerCase());
+        }
     }
 }
