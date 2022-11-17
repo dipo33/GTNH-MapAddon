@@ -1,5 +1,8 @@
 package io.github.dipo33.gtmapaddon.command.factory.subcommand;
 
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandException;
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandInvalidSubCommandException;
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandNotEnoughArgsException;
 import net.minecraft.command.ICommandSender;
 
 import java.util.ArrayList;
@@ -93,20 +96,18 @@ public class NestingSubCommand extends SubCommand {
     }
 
     @Override
-    public void processCommand(ICommandSender sender, String[] args, List<String> processedArgs) {
+    public void processCommandInternal(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 1) {
-            sendInvalidUsage(sender, processedArgs, "Error: Not enough arguments");
-            return;
+            throw new CommandNotEnoughArgsException();
         }
 
         for (SubCommand subCommand : subCommands) {
             if (subCommand.getName().equalsIgnoreCase(args[0])) {
-                processedArgs.add(args[0]);
-                subCommand.processCommand(sender, Arrays.copyOfRange(args, 1, args.length), processedArgs);
+                subCommand.processCommand(sender, Arrays.copyOfRange(args, 1, args.length));
                 return;
             }
         }
 
-        sendInvalidUsage(sender, processedArgs, "Error: Invalid sub-command");
+        throw new CommandInvalidSubCommandException(args[0]);
     }
 }

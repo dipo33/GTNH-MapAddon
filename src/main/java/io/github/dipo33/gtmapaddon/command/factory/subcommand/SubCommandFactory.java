@@ -9,12 +9,13 @@ import io.github.dipo33.gtmapaddon.command.factory.argument.ArgString;
 import io.github.dipo33.gtmapaddon.command.factory.argument.Argument;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgumentFactory;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgumentList;
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandException;
+import io.github.dipo33.gtmapaddon.utils.ThrowingBiConsumer;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiConsumer;
 
 public class SubCommandFactory implements ISubCommandFactory, WithSubCommandsOnly {
 
@@ -85,7 +86,7 @@ public class SubCommandFactory implements ISubCommandFactory, WithSubCommandsOnl
     }
 
     @Override
-    public SubCommand build(BiConsumer<ArgumentList, ICommandSender> processor) {
+    public SubCommand build(ThrowingBiConsumer<ArgumentList, ICommandSender, CommandException> processor) {
         return new ArgumentalSubcommand(name, arguments, processor);
     }
 

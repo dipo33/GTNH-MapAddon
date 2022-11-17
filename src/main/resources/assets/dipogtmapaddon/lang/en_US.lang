@@ -8,9 +8,24 @@ dipogtmapaddon.BUILD=Build Chunk
 dipogtmapaddon.FARM=Farm Chunk
 dipogtmapaddon.TRANSPORT=Transport Chunk
 
+dipogtmapaddon.command.usage=§cUsage:
+dipogtmapaddon.command.usageLine=    §c/%s
+dipogtmapaddon.command.exception.error=§cError
+dipogtmapaddon.command.exception.notEnoughArguments=§cNot enough arguments
+dipogtmapaddon.command.exception.invalidSubCommand=§8'§6%s§8'§c is not a valid sub-command
+dipogtmapaddon.command.exception.parseDipoPrice=§cCan't parse argument §8'§6%s§8' §cto a price
+dipogtmapaddon.command.exception.parseDipoPriceDots=§cCan't parse argument §8'§6%s§8' §cto a price (more than one dot is not allowed)
+dipogtmapaddon.command.exception.parseDipoPriceDecimals=§cCan't parse argument §8'§6%s§8' §cto a price (only two decimal points are allowed)
+dipogtmapaddon.command.exception.parseEnum=§8'§6%s§8' §cis not a valid value for §8<§6%s§8>
+dipogtmapaddon.command.exception.parseInteger=§cCan't parse argument §8'§6%s§8' §cto an integer §8<§6%s§8>
+dipogtmapaddon.command.exception.parsePlayer=§cPlayer §8'§6%s§8' §cdoesn't exist
+dipogtmapaddon.command.exception.parseStringExpectedLength=§cArgument §8<§6%s§8> §cshould be §6%d §ccharacters long
+
+dipogtmapaddon.command.exception.useCreditCardWrongPin=§cIncorrect PIN code!
+dipogtmapaddon.command.exception.useCreditCardNotEnoughMoney=§cInsufficient funds! You need §6$%s §cto buy this
+dipogtmapaddon.command.exception.useCreditCardNotHeld=§cYou need to hold a credit card in your hand!
+
 dipogtmapaddon.command.chunkBought=§aYou've successfully bought §6%s §achunk at §8[§6%d§8, §6%d§8] §afor §6$%d
-dipogtmapaddon.command.buyChunkNoFunds=§cInsufficient funds! You need §6$%s §cto buy §6%s §cchunk in §6%s
-dipogtmapaddon.command.cardNotHeld=§cYou need to hold a credit card in your hand!
 dipogtmapaddon.command.chunkMarked=§aYou've successfully marked chunk at §8[§6%d§8, §6%d§8] §aas mined by §6%s
 dipogtmapaddon.command.priceSet=§aYou've successfully set the price for §6%s §achunk in §6%s §ato §6$%d
 dipogtmapaddon.command.pricesGet=§eThe prices in §6%s §eare:

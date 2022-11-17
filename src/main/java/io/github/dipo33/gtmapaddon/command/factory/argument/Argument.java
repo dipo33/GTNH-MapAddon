@@ -1,5 +1,6 @@
 package io.github.dipo33.gtmapaddon.command.factory.argument;
 
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandException;
 import io.github.dipo33.gtmapaddon.command.factory.subcommand.WithArguments;
 import net.minecraft.command.ICommandSender;
 
@@ -11,8 +12,6 @@ public abstract class Argument<T> {
     private final String name;
     private T defaultValue = null;
     private Function<ICommandSender, T> defaultFactory = null;
-
-    private T value;
 
     public Argument(String name) {
         this.name = name;
@@ -26,14 +25,6 @@ public abstract class Argument<T> {
         return this.defaultValue == null && this.defaultFactory == null;
     }
 
-    public T get() {
-        return this.value;
-    }
-
-    public void set(T value) {
-        this.value = value;
-    }
-
     public void setDefault(T value) {
         this.defaultValue = value;
     }
@@ -42,18 +33,16 @@ public abstract class Argument<T> {
         this.defaultFactory = defaultFactory;
     }
 
-    public abstract boolean fill(String value, ICommandSender sender);
+    public abstract T parse(String value, ICommandSender sender) throws CommandException;
 
-    public final boolean fillDefaults(ICommandSender sender) {
+    public final T fromDefaults(ICommandSender sender) {
         if (this.defaultFactory != null) {
-            this.value = this.defaultFactory.apply(sender);
+            return this.defaultFactory.apply(sender);
         } else if (this.defaultValue != null) {
-            this.value = this.defaultValue;
+            return this.defaultValue;
         } else {
-            return false;
+            return null; // TODO: Maybe an exception throw?
         }
-
-        return true;
     }
 
     public final String getUsage() {
@@ -62,8 +51,6 @@ public abstract class Argument<T> {
     }
 
     protected abstract String getUsageInternal();
-
-    public abstract String getError();
 
     public abstract List<String> getTabCompletionOptions(ICommandSender sender, String arg);
 

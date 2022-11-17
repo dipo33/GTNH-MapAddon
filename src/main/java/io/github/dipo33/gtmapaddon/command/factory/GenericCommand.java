@@ -1,12 +1,15 @@
 package io.github.dipo33.gtmapaddon.command.factory;
 
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandException;
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandInvalidUsageException;
 import io.github.dipo33.gtmapaddon.command.factory.subcommand.SubCommand;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ChatComponentText;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,7 +42,17 @@ public class GenericCommand implements ICommand {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
-        command.processCommand(sender, args, new ArrayList<>());
+        try {
+            command.processCommand(sender, args);
+        } catch (CommandInvalidUsageException e) {
+            sender.addChatMessage(new ChatComponentText(e.getMessage()));
+            sender.addChatMessage(new ChatComponentText(I18n.format("dipogtmapaddon.command.usage")));
+            for (String usage : command.getCommandUsages(e.getProcessedArgs())) {
+                sender.addChatMessage(new ChatComponentText(I18n.format("dipogtmapaddon.command.usageLine", usage)));
+            }
+        } catch (CommandException e) {
+            sender.addChatMessage(new ChatComponentText(e.getMessage()));
+        }
     }
 
     @Override

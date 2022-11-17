@@ -1,5 +1,7 @@
 package io.github.dipo33.gtmapaddon.command.factory.argument;
 
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandException;
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandParseException;
 import io.github.dipo33.gtmapaddon.command.factory.subcommand.WithArguments;
 import net.minecraft.command.ICommandSender;
 
@@ -13,24 +15,17 @@ public class ArgInt extends Argument<Integer> {
     }
 
     @Override
-    public boolean fill(String value, ICommandSender sender) {
+    public Integer parse(String value, ICommandSender sender) throws CommandException {
         try {
-            super.set(Integer.parseInt(value));
+            return Integer.parseInt(value);
         } catch (NumberFormatException e) {
-            return false;
+            throw new CommandParseException("parseInteger", value, getName());
         }
-
-        return true;
     }
 
     @Override
     public String getUsageInternal() {
         return String.format("<%s>", getName());
-    }
-
-    @Override
-    public String getError() {
-        return String.format("Can't parse argument <%s> to an integer", getName());
     }
 
     @Override

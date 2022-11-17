@@ -1,5 +1,7 @@
 package io.github.dipo33.gtmapaddon.command.factory.argument;
 
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandException;
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandParseException;
 import io.github.dipo33.gtmapaddon.command.factory.subcommand.WithArguments;
 import io.github.dipo33.gtmapaddon.compat.MoneyModWrapper;
 import net.minecraft.command.ICommandSender;
@@ -15,24 +17,17 @@ public class ArgDipoPrice extends Argument<Integer> {
     }
 
     @Override
-    public boolean fill(String value, ICommandSender sender) {
+    public Integer parse(String value, ICommandSender sender) throws CommandException {
         try {
-            super.set(MoneyModWrapper.stringToPrice(value));
-
-            return true;
+            return MoneyModWrapper.stringToPrice(value);
         } catch (NumberFormatException e) {
-            return false;
+            throw new CommandParseException("parseDipoPrice", value);
         }
     }
 
     @Override
     protected String getUsageInternal() {
         return String.format("<%s>", getName());
-    }
-
-    @Override
-    public String getError() {
-        return String.format("Can't parse argument <%s> to a price (two decimal points separated by dot)", getName());
     }
 
     @Override

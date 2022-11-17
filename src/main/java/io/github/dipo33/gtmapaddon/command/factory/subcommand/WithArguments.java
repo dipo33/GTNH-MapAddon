@@ -3,10 +3,10 @@ package io.github.dipo33.gtmapaddon.command.factory.subcommand;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgString;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgumentFactory;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgumentList;
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandException;
+import io.github.dipo33.gtmapaddon.utils.ThrowingBiConsumer;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
-
-import java.util.function.BiConsumer;
 
 public interface WithArguments {
 
@@ -20,7 +20,7 @@ public interface WithArguments {
 
     ArgString.Factory addStringArgument(String name);
 
-    SubCommand build(BiConsumer<ArgumentList, ICommandSender> processor);
+    SubCommand build(ThrowingBiConsumer<ArgumentList, ICommandSender, CommandException> processor);
 
     ArgumentFactory<Integer> addDipoPriceArg(String name);
 }

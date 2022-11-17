@@ -1,5 +1,8 @@
 package io.github.dipo33.gtmapaddon.compat;
 
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandException;
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandParseException;
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandProcessException;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import sk.dipo.money.MoneyMod;
@@ -18,13 +21,13 @@ public class MoneyModWrapper {
         return euro + "." + cent;
     }
 
-    public static int stringToPrice(String priceString) {
+    public static int stringToPrice(String priceString) throws CommandException {
         if (priceString.contains(".")) {
             String[] parts = priceString.split("\\.");
             if (dotCount(priceString) > 1) {
-                throw new NumberFormatException("More than one dot is not allowed");
+                throw new CommandParseException("parseDipoPriceDots", priceString);
             } else if (parts[1].length() > 2) {
-                throw new NumberFormatException("Only two decimal points are allowed");
+                throw new CommandParseException("parseDipoPriceDecimals", priceString);
             }
 
             int euro = Integer.parseInt(parts[0]);
@@ -37,20 +40,19 @@ public class MoneyModWrapper {
         }
     }
 
-    public static boolean chargeMoney(ItemStack creditCard, String pinCode, int value) {
+    public static void chargeMoney(ItemStack creditCard, String pinCode, int value) throws CommandException {
         NBTTagCompound tag = creditCard.getTagCompound();
         String actualPinCode = tag.getString("PIN");
         if (!actualPinCode.equalsIgnoreCase(pinCode)) {
-            return false;
+            throw new CommandProcessException("useCreditCardWrongPin");
         }
 
         int balance = MoneyMod.db.getInteger("Players", tag.getString("OwnerUUID") + ".Balance");
         if (balance < value) {
-            return false;
+            throw new CommandProcessException("useCreditCardNotEnoughMoney", priceToString(value));
         }
 
         MoneyMod.db.set("Players", tag.getString("OwnerUUID") + ".Balance", balance - value);
-        return true;
     }
 
     private static int dotCount(String str) {

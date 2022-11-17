@@ -1,5 +1,7 @@
 package io.github.dipo33.gtmapaddon.command.factory.argument;
 
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandException;
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandParseException;
 import io.github.dipo33.gtmapaddon.command.factory.subcommand.WithArguments;
 import net.minecraft.command.ICommandSender;
 
@@ -15,21 +17,17 @@ public class ArgString extends Argument<String> {
     }
 
     @Override
-    public boolean fill(String value, ICommandSender sender) {
-        if (expectedLength != null && value.length() != expectedLength) return false;
-        super.set(value);
+    public String parse(String value, ICommandSender sender) throws CommandException {
+        if (expectedLength != null && value.length() != expectedLength) {
+            throw new CommandParseException("parseStringExpectedLength", getName(), expectedLength);
+        }
 
-        return true;
+        return value;
     }
 
     @Override
     public String getUsageInternal() {
         return String.format("<%s>", getName());
-    }
-
-    @Override
-    public String getError() {
-        return "None";
     }
 
     @Override

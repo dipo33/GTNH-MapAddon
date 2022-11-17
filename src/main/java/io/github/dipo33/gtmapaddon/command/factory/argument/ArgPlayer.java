@@ -1,5 +1,7 @@
 package io.github.dipo33.gtmapaddon.command.factory.argument;
 
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandException;
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandParseException;
 import io.github.dipo33.gtmapaddon.command.factory.subcommand.WithArguments;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.PlayerSelector;
@@ -16,21 +18,18 @@ public class ArgPlayer extends Argument<EntityPlayerMP> {
     }
 
     @Override
-    public boolean fill(String value, ICommandSender sender) {
+    public EntityPlayerMP parse(String value, ICommandSender sender) throws CommandException {
         final EntityPlayerMP player = PlayerSelector.matchOnePlayer(sender, value);
-        super.set(player);
+        if (player == null) {
+            throw new CommandParseException("parsePlayer", value);
+        }
 
-        return player != null;
+        return player;
     }
 
     @Override
     public String getUsageInternal() {
         return String.format("<%s>", getName());
-    }
-
-    @Override
-    public String getError() {
-        return "Specified player doesn't exist";
     }
 
     @Override

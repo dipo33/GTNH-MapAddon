@@ -14,20 +14,13 @@ public class ArgOfflinePlayer extends Argument<String> {
     }
 
     @Override
-    public boolean fill(String value, ICommandSender sender) {
-        super.set(value);
-
-        return true;
+    public String parse(String value, ICommandSender sender) {
+        return value;
     }
 
     @Override
     public String getUsageInternal() {
         return String.format("<%s>", getName());
-    }
-
-    @Override
-    public String getError() {
-        return "None";
     }
 
     @Override

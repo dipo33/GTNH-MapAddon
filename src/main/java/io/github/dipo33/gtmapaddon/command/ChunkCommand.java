@@ -5,6 +5,8 @@ import io.github.dipo33.gtmapaddon.GTMapAddonMod;
 import io.github.dipo33.gtmapaddon.GeneralUtils;
 import io.github.dipo33.gtmapaddon.command.factory.CommandFactory;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgumentList;
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandException;
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandProcessException;
 import io.github.dipo33.gtmapaddon.command.factory.subcommand.SubCommandFactory;
 import io.github.dipo33.gtmapaddon.compat.MoneyModWrapper;
 import io.github.dipo33.gtmapaddon.data.entity.MinedChunk;
@@ -58,7 +60,7 @@ public class ChunkCommand {
                             ).build()
                 );
 
-    private static void buyCommand(ArgumentList arguments, ICommandSender sender) {
+    private static void buyCommand(ArgumentList arguments, ICommandSender sender) throws CommandException {
         final OwnedChunk.Status status = arguments.getEnum(0);
         final String pinCode = arguments.getString(1);
 
@@ -74,18 +76,10 @@ public class ChunkCommand {
         final ItemStack creditCard = player.getHeldItem();
 
         if (creditCard == null || creditCard.getItem() != MoneyItems.creditCard) {
-            GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.cardNotHeld");
-            return;
+            throw new CommandProcessException("useCreditCardNotHeld");
         }
 
-        // TODO: Also can mean incorrect PIN
-        if (!MoneyModWrapper.chargeMoney(player.getHeldItem(), pinCode, price)) {
-            GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.buyChunkNoFunds",
-                    priceString, status.name().toLowerCase(),
-                    DimensionManager.getWorld(dimensionId).provider.getDimensionName()
-            );
-            return;
-        }
+        MoneyModWrapper.chargeMoney(player.getHeldItem(), pinCode, price);
 
         final OwnedChunk ownedChunk = new OwnedChunk(chunkX, chunkZ, dimensionId, owner, status);
         DataCache.OWNED_CHUNKS_STORAGE.put(dimensionId, chunkX, chunkZ, ownedChunk);
