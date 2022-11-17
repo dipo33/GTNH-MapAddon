@@ -6,15 +6,20 @@ import io.github.dipo33.gtmapaddon.GeneralUtils;
 import io.github.dipo33.gtmapaddon.command.factory.CommandFactory;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgumentList;
 import io.github.dipo33.gtmapaddon.command.factory.subcommand.SubCommandFactory;
+import io.github.dipo33.gtmapaddon.compat.MoneyModWrapper;
 import io.github.dipo33.gtmapaddon.data.entity.MinedChunk;
 import io.github.dipo33.gtmapaddon.data.entity.OwnedChunk;
 import io.github.dipo33.gtmapaddon.network.AddMinedChunkMessage;
 import io.github.dipo33.gtmapaddon.network.BoughtChunkMessage;
 import io.github.dipo33.gtmapaddon.storage.DataCache;
+import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraftforge.common.DimensionManager;
+import sk.dipo.money.item.MoneyItems;
 
 public class ChunkCommand {
 
@@ -25,6 +30,7 @@ public class ChunkCommand {
                             .addSubCommand(SubCommandFactory
                                         .createSubCommand("buy")
                                         .addEnumArgument("type", OwnedChunk.Status.class).build()
+                                        .addStringArgument("pinCode").setExpectedLength(4).build()
                                         .build(ChunkCommand::buyCommand)
                             ).addSubCommand(SubCommandFactory
                                         .createSubCommand("mark-as-mined")
@@ -42,7 +48,7 @@ public class ChunkCommand {
                                                     .build(ChunkCommand::getPrices)
                                         ).addSubCommand(SubCommandFactory
                                                     .createSubCommand("set")
-                                                    .addIntArgument("price").build()
+                                                    .addDipoPriceArg("price").build()
                                                     .addEnumArgument("type", OwnedChunk.Status.class).build()
                                                     .addIntArgument("dimensionId")
                                                                 .setDefaultFactory(sender -> sender.getEntityWorld().provider.dimensionId)
@@ -53,19 +59,42 @@ public class ChunkCommand {
                 );
 
     private static void buyCommand(ArgumentList arguments, ICommandSender sender) {
+        final OwnedChunk.Status status = arguments.getEnum(0);
+        final String pinCode = arguments.getString(1);
+
         final ChunkCoordinates coordinates = sender.getPlayerCoordinates();
         final int chunkX = Utils.coordBlockToChunk(coordinates.posX);
         final int chunkZ = Utils.coordBlockToChunk(coordinates.posZ);
         final int dimensionId = sender.getEntityWorld().provider.dimensionId;
-        final OwnedChunk.Status status = arguments.getEnum(0);
         final String owner = sender.getCommandSenderName();
+        final int price = DataCache.PRIZE_LIST.getPrice(dimensionId, status);
+
+        final String priceString = MoneyModWrapper.priceToString(price);
+        final EntityPlayerMP player = CommandBase.getCommandSenderAsPlayer(sender);
+        final ItemStack creditCard = player.getHeldItem();
+
+        if (creditCard == null || creditCard.getItem() != MoneyItems.creditCard) {
+            GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.cardNotHeld");
+            return;
+        }
+
+        // TODO: Also can mean incorrect PIN
+        if (!MoneyModWrapper.chargeMoney(player.getHeldItem(), pinCode, price)) {
+            GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.buyChunkNoFunds",
+                    priceString, status.name().toLowerCase(),
+                    DimensionManager.getWorld(dimensionId).provider.getDimensionName()
+            );
+            return;
+        }
 
         final OwnedChunk ownedChunk = new OwnedChunk(chunkX, chunkZ, dimensionId, owner, status);
         DataCache.OWNED_CHUNKS_STORAGE.put(dimensionId, chunkX, chunkZ, ownedChunk);
         GTMapAddonMod.NETWORK_CHANNEL.sendToAll(new BoughtChunkMessage(ownedChunk));
         DataCache.OWNED_CHUNKS_SERIALIZER.save();
 
-        GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.chunkBought", status.name().toLowerCase(), chunkX, chunkZ, 100);
+        GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.chunkBought",
+                status.name().toLowerCase(), chunkX, chunkZ, priceString
+        );
     }
 
     private static void markAsMined(ArgumentList arguments, ICommandSender sender) {
@@ -91,7 +120,9 @@ public class ChunkCommand {
 
         DataCache.PRIZE_LIST.setPrice(dimensionId, status, price);
 
-        GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.priceSet", status.name().toLowerCase(), dimensionName, price);
+        GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.priceSet",
+                status.name().toLowerCase(), dimensionName, MoneyModWrapper.priceToString(price)
+        );
     }
 
     public static void getPrices(ArgumentList argumentList, ICommandSender sender) {
@@ -101,8 +132,10 @@ public class ChunkCommand {
 
         for (OwnedChunk.Status status : OwnedChunk.Status.values()) {
             final int price = DataCache.PRIZE_LIST.getPrice(dimensionId, status);
-            final String priceString = price < 0 ? "???" : Integer.toString(price);
-            GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.pricesGetType", priceString, status.name().toLowerCase());
+            final String priceString = price < 0 ? "???" : MoneyModWrapper.priceToString(price);
+            GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.pricesGetType",
+                    priceString, status.name().toLowerCase()
+            );
         }
     }
 }

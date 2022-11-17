@@ -1,5 +1,6 @@
 package io.github.dipo33.gtmapaddon.command.factory.subcommand;
 
+import io.github.dipo33.gtmapaddon.command.factory.argument.ArgDipoPrice;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgEnum;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgInt;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgOfflinePlayer;
@@ -70,6 +71,14 @@ public class SubCommandFactory implements ISubCommandFactory, WithSubCommandsOnl
     @Override
     public ArgString.Factory addStringArgument(String name) {
         ArgString arg = new ArgString(name);
+        arguments.add(arg);
+
+        return arg.getFactory(this);
+    }
+
+    @Override
+    public ArgumentFactory<Integer> addDipoPriceArg(String name) {
+        ArgDipoPrice arg = new ArgDipoPrice(name);
         arguments.add(arg);
 
         return arg.getFactory(this);

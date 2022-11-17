@@ -9,6 +9,8 @@ dipogtmapaddon.FARM=Farm Chunk
 dipogtmapaddon.TRANSPORT=Transport Chunk
 
 dipogtmapaddon.command.chunkBought=§aYou've successfully bought §6%s §achunk at §8[§6%d§8, §6%d§8] §afor §6$%d
+dipogtmapaddon.command.buyChunkNoFunds=§cInsufficient funds! You need §6$%s §cto buy §6%s §cchunk in §6%s
+dipogtmapaddon.command.cardNotHeld=§cYou need to hold a credit card in your hand!
 dipogtmapaddon.command.chunkMarked=§aYou've successfully marked chunk at §8[§6%d§8, §6%d§8] §aas mined by §6%s
 dipogtmapaddon.command.priceSet=§aYou've successfully set the price for §6%s §achunk in §6%s §ato §6$%d
 dipogtmapaddon.command.pricesGet=§eThe prices in §6%s §eare:

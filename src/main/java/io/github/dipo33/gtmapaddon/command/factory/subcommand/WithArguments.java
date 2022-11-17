@@ -21,4 +21,6 @@ public interface WithArguments {
     ArgString.Factory addStringArgument(String name);
 
     SubCommand build(BiConsumer<ArgumentList, ICommandSender> processor);
+
+    ArgumentFactory<Integer> addDipoPriceArg(String name);
 }
