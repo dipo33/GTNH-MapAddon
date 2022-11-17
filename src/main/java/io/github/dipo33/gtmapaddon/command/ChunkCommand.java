@@ -64,7 +64,7 @@ public class ChunkCommand {
         final String dimensionName = DimensionManager.getWorld(dimensionId).provider.getDimensionName();
         final int price = DataCache.PRIZE_LIST.getPrice(dimensionId, status);
         if (price < 0) {
-            throw new CommandProcessException("chunkPriceNotSet", status.name().toLowerCase(), chunkX, chunkZ, dimensionName);
+            throw new CommandProcessException("chunkPriceNotSet", status.getName(), chunkX, chunkZ, dimensionName);
         }
 
         return price;
@@ -84,7 +84,7 @@ public class ChunkCommand {
 
         if (previouslyOwnedChunk != null) {
             if (!previouslyOwnedChunk.getOwner().equalsIgnoreCase(sender.getCommandSenderName())) {
-                throw new CommandProcessException("chunkAlreadyOwnedBy", ownedChunk.getStatus().name().toLowerCase(),
+                throw new CommandProcessException("chunkAlreadyOwnedBy", ownedChunk.getStatus().getName(),
                         ownedChunk.getChunkX(), ownedChunk.getChunkZ(), dimensionName, previouslyOwnedChunk.getOwner()
                 );
             }
@@ -92,7 +92,7 @@ public class ChunkCommand {
             int paidPrice = DataCache.PRIZE_LIST.getPrice(ownedChunk.getDimensionId(), previouslyOwnedChunk.getStatus());
             price -= paidPrice;
             if (price <= 0) {
-                throw new CommandProcessException("chunkAlreadyOwned", ownedChunk.getStatus().name().toLowerCase(),
+                throw new CommandProcessException("chunkAlreadyOwned", ownedChunk.getStatus().getName(),
                         ownedChunk.getChunkX(), ownedChunk.getChunkZ(), dimensionName
                 );
             }
@@ -127,11 +127,11 @@ public class ChunkCommand {
         final String dimensionName = DimensionManager.getWorld(dimensionId).provider.getDimensionName();
         if (price != newPrice) {
             GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.chunkUpgraded",
-                    previouslyOwnedChunk.getStatus().name().toLowerCase(), status.name().toLowerCase(), chunkX, chunkZ, dimensionName, priceString
+                    previouslyOwnedChunk.getStatus().getName(), status.getName(), chunkX, chunkZ, dimensionName, priceString
             );
         } else {
             GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.chunkBought",
-                    status.name().toLowerCase(), chunkX, chunkZ, dimensionName, priceString
+                    status.getName(), chunkX, chunkZ, dimensionName, priceString
             );
         }
     }
@@ -160,7 +160,7 @@ public class ChunkCommand {
         DataCache.PRIZE_LIST.setPrice(dimensionId, status, price);
 
         GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.priceSet",
-                status.name().toLowerCase(), dimensionName, MoneyModWrapper.priceToString(price)
+                status.getName(), dimensionName, MoneyModWrapper.priceToString(price)
         );
     }
 
@@ -173,7 +173,7 @@ public class ChunkCommand {
             final int price = DataCache.PRIZE_LIST.getPrice(dimensionId, status);
             final String priceString = price < 0 ? "???" : MoneyModWrapper.priceToString(price);
             GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.pricesGetType",
-                    priceString, status.name().toLowerCase()
+                    priceString, status.getName()
             );
         }
     }

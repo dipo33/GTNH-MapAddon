@@ -57,7 +57,11 @@ public class OwnedChunk implements SerializableChunkEntry<OwnedChunk> {
     public enum Status {
         BUILD,
         FARM,
-        TRANSPORT
+        TRANSPORT;
+
+        public String getName() {
+            return name().toLowerCase();
+        }
     }
 
     private static class Keys {
