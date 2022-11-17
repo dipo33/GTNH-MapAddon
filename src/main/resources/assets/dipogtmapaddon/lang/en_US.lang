@@ -24,8 +24,12 @@ dipogtmapaddon.command.exception.parseStringExpectedLength=§cArgument §8<§6%s
 dipogtmapaddon.command.exception.useCreditCardWrongPin=§cIncorrect PIN code!
 dipogtmapaddon.command.exception.useCreditCardNotEnoughMoney=§cInsufficient funds! You need §6$%s §cto buy this
 dipogtmapaddon.command.exception.useCreditCardNotHeld=§cYou need to hold a credit card in your hand!
+dipogtmapaddon.command.exception.chunkAlreadyOwned=§cCan't buy §6%s §cchunk at §8[§6%d§8, §6%d§8] §cin §6%s§c, because you already own it
+dipogtmapaddon.command.exception.chunkAlreadyOwnedBy=§cCan't buy §6%s §cchunk at §8[§6%d§8, §6%d§8] §cin §6%s§c, because it's already owned by §6%s
+dipogtmapaddon.command.exception.chunkPriceNotSet=§cCan't buy §6%s §cchunk at §8[§6%d§8, §6%d§8] §cin §6%s§c, because the price is not yet set
 
-dipogtmapaddon.command.chunkBought=§aYou've successfully bought §6%s §achunk at §8[§6%d§8, §6%d§8] §afor §6$%d
+dipogtmapaddon.command.chunkBought=§aYou've successfully bought §6%s §achunk at §8[§6%d§8, §6%d§8] §ain §6%s §afor §6$%d
+dipogtmapaddon.command.chunkUpgraded=§aYou've successfully upgraded §6%s §achunk to a §6%s §achunk at §8[§6%d§8, §6%d§8] §ain §6%s §afor §6$%d
 dipogtmapaddon.command.chunkMarked=§aYou've successfully marked chunk at §8[§6%d§8, §6%d§8] §aas mined by §6%s
 dipogtmapaddon.command.priceSet=§aYou've successfully set the price for §6%s §achunk in §6%s §ato §6$%d
 dipogtmapaddon.command.pricesGet=§eThe prices in §6%s §eare:
