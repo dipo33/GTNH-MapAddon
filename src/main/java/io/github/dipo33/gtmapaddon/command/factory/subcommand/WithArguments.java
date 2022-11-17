@@ -1,5 +1,6 @@
 package io.github.dipo33.gtmapaddon.command.factory.subcommand;
 
+import io.github.dipo33.gtmapaddon.command.factory.argument.ArgString;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgumentFactory;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgumentList;
 import net.minecraft.command.ICommandSender;
@@ -17,7 +18,7 @@ public interface WithArguments {
 
     ArgumentFactory<String> addOfflinePlayerArgument(String name);
 
-    ArgumentFactory<String> addStringArgument(String name);
+    ArgString.Factory addStringArgument(String name);
 
     SubCommand build(BiConsumer<ArgumentList, ICommandSender> processor);
 }

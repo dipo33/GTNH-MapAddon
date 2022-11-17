@@ -8,12 +8,15 @@ import java.util.List;
 
 public class ArgString extends Argument<String> {
 
+    private Integer expectedLength = null;
+
     public ArgString(String name) {
         super(name);
     }
 
     @Override
     public boolean fill(String value, ICommandSender sender) {
+        if (expectedLength != null && value.length() != expectedLength) return false;
         super.set(value);
 
         return true;
@@ -35,7 +38,25 @@ public class ArgString extends Argument<String> {
     }
 
     @Override
-    public ArgumentFactory<String> getFactory(WithArguments commandFactory) {
-        return new ArgumentFactory<>(this, commandFactory);
+    public Factory getFactory(WithArguments commandFactory) {
+        return new Factory(this, commandFactory);
+    }
+
+    public static class Factory extends ArgumentFactory<String> {
+
+        public Factory(ArgString argument, WithArguments commandFactory) {
+            super(argument, commandFactory);
+        }
+
+        public Factory setExpectedLength(int expectedLength) {
+            ((ArgString) argument).expectedLength = expectedLength;
+
+            return this;
+        }
+
+        @Override
+        public WithArguments build() {
+            return super.build();
+        }
     }
 }

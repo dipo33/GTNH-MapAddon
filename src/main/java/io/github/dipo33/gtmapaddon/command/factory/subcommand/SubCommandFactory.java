@@ -68,7 +68,7 @@ public class SubCommandFactory implements ISubCommandFactory, WithSubCommandsOnl
     }
 
     @Override
-    public ArgumentFactory<String> addStringArgument(String name) {
+    public ArgString.Factory addStringArgument(String name) {
         ArgString arg = new ArgString(name);
         arguments.add(arg);
 
