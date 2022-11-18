@@ -2,7 +2,6 @@ package io.github.dipo33.gtmapaddon.storage.serializable;
 
 import io.github.dipo33.gtmapaddon.GTMapAddonMod;
 import net.minecraft.nbt.CompressedStreamTools;
-import net.minecraft.nbt.NBTTagCompound;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +26,7 @@ public class Serializer<T extends Serializable<T>> {
 
         try {
             T instance = getter.get();
-            CompressedStreamTools.safeWrite((NBTTagCompound) instance.serialize(instance), file);
+            CompressedStreamTools.safeWrite(instance.serialize(instance), file);
         } catch (IOException e) {
             e.printStackTrace();
         }

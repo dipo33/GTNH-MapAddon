@@ -1,7 +1,6 @@
 package io.github.dipo33.gtmapaddon.data.entity;
 
 import io.github.dipo33.gtmapaddon.storage.serializable.Serializable;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
@@ -32,7 +31,7 @@ public class PrizeList implements Serializable<PrizeList> {
     }
 
     @Override
-    public NBTBase serialize(PrizeList item) {
+    public NBTTagCompound serialize(PrizeList item) {
         NBTTagCompound tag = new NBTTagCompound();
         NBTTagList tagDimensions = new NBTTagList();
 
@@ -54,8 +53,7 @@ public class PrizeList implements Serializable<PrizeList> {
     }
 
     @Override
-    public PrizeList deserialize(NBTBase baseTag) {
-        NBTTagCompound tag = (NBTTagCompound) baseTag;
+    public PrizeList deserialize(NBTTagCompound tag) {
         NBTTagList tagDimensions = tag.getTagList(Keys.DIMENSIONS, Constants.NBT.TAG_COMPOUND);
         PrizeList prizeList = new PrizeList();
 

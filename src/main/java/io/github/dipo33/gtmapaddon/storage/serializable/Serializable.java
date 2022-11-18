@@ -1,9 +1,9 @@
 package io.github.dipo33.gtmapaddon.storage.serializable;
 
-import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
 
 public interface Serializable<T> {
-    NBTBase serialize(T item);
+    NBTTagCompound serialize(T item);
 
-    T deserialize(NBTBase tag);
+    T deserialize(NBTTagCompound tag);
 }

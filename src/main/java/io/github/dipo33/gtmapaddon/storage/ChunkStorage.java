@@ -3,7 +3,6 @@ package io.github.dipo33.gtmapaddon.storage;
 import com.sinthoras.visualprospecting.Utils;
 import io.github.dipo33.gtmapaddon.storage.serializable.Serializable;
 import io.github.dipo33.gtmapaddon.storage.serializable.SerializableChunkEntry;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
@@ -67,7 +66,7 @@ public class ChunkStorage<T extends SerializableChunkEntry<T>> implements Serial
     }
 
     @Override
-    public NBTBase serialize(ChunkStorage<T> storage) {
+    public NBTTagCompound serialize(ChunkStorage<T> storage) {
         NBTTagCompound tag = new NBTTagCompound();
         List<Integer> dimensionIds = new ArrayList<>();
 
@@ -91,8 +90,7 @@ public class ChunkStorage<T extends SerializableChunkEntry<T>> implements Serial
     }
 
     @Override
-    public ChunkStorage<T> deserialize(NBTBase baseTag) {
-        NBTTagCompound tag = (NBTTagCompound) baseTag;
+    public ChunkStorage<T> deserialize(NBTTagCompound tag) {
         ChunkStorage<T> storage = new ChunkStorage<>(instance);
 
         for (int dimensionId : tag.getIntArray(Keys.DIMENSION_IDS)) {
