@@ -44,7 +44,7 @@ public class CommonProxy {
     }
 
     public void serverStarting(FMLServerStartingEvent event) {
-        event.registerServerCommand(ChunkCommand.command);
+        event.registerServerCommand(ChunkCommand.COMMAND);
 
         DataCache.MINED_CHUNKS_SERIALIZER.read();
         DataCache.OWNED_CHUNKS_SERIALIZER.read();

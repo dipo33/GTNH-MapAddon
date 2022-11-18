@@ -18,7 +18,7 @@ import net.minecraftforge.common.DimensionManager;
 
 public class ChunkCommand {
 
-    public static final ICommand command = CommandFactory.createCommand()
+    public static final ICommand COMMAND = CommandFactory.createCommand()
                 .onlyPlayerUse()
                 .addSubCommand(SubCommandFactory
                             .createSubCommand("chunk")
