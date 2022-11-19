@@ -55,7 +55,7 @@ public class LicenseCommand {
             throw new CommandInvalidUsageException("licenseAlreadyExists", category.getName(), name);
         }
 
-        GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.licenseCreated",
+        GeneralUtils.sendFormattedTranslation(sender, "dipogtmapaddon.command.licenseCreated",
                 category.getName(), name, price
         );
     }

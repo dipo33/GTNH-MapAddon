@@ -84,11 +84,11 @@ public class ChunkBuyCommand {
 
         final String dimensionName = DimensionManager.getWorld(dimensionId).provider.getDimensionName();
         if (price != newPrice) {
-            GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.chunkUpgraded",
+            GeneralUtils.sendFormattedTranslation(sender, "dipogtmapaddon.command.chunkUpgraded",
                     previouslyOwnedChunk.getStatus().getName(), status.getName(), chunkX, chunkZ, dimensionName, priceString
             );
         } else {
-            GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.chunkBought",
+            GeneralUtils.sendFormattedTranslation(sender, "dipogtmapaddon.command.chunkBought",
                     status.getName(), chunkX, chunkZ, dimensionName, priceString
             );
         }

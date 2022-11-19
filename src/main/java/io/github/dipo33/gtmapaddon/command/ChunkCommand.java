@@ -65,7 +65,7 @@ public class ChunkCommand {
         GTMapAddonMod.NETWORK_CHANNEL.sendToAll(new AddMinedChunkMessage(minedChunk));
         DataCache.MINED_CHUNKS_SERIALIZER.save();
 
-        GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.chunkMarked", chunkX, chunkZ, minedBy);
+        GeneralUtils.sendFormattedTranslation(sender, "dipogtmapaddon.command.chunkMarked", chunkX, chunkZ, minedBy);
     }
 
     public static void setPrice(ArgumentList argumentList, ICommandSender sender) {
@@ -76,7 +76,7 @@ public class ChunkCommand {
 
         DataCache.PRIZE_LIST.setPrice(dimensionId, status, price);
 
-        GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.priceSet",
+        GeneralUtils.sendFormattedTranslation(sender, "dipogtmapaddon.command.priceSet",
                 status.getName(), dimensionName, MoneyModWrapper.priceToString(price)
         );
     }
@@ -84,12 +84,12 @@ public class ChunkCommand {
     public static void getPrices(ArgumentList argumentList, ICommandSender sender) {
         final int dimensionId = argumentList.getInt(0);
         final String dimensionName = DimensionManager.getWorld(dimensionId).provider.getDimensionName();
-        GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.pricesGet", dimensionName);
+        GeneralUtils.sendFormattedTranslation(sender, "dipogtmapaddon.command.pricesGet", dimensionName);
 
         for (Status status : Status.values()) {
             final int price = DataCache.PRIZE_LIST.getPrice(dimensionId, status);
             final String priceString = price < 0 ? "???" : MoneyModWrapper.priceToString(price);
-            GeneralUtils.sendFormattedText(sender, "dipogtmapaddon.command.pricesGetType",
+            GeneralUtils.sendFormattedTranslation(sender, "dipogtmapaddon.command.pricesGetType",
                     priceString, status.getName()
             );
         }
