@@ -38,7 +38,7 @@ public class SubCommandFactory implements ISubCommandFactory, WithSubCommandsOnl
     }
 
     @Override
-    public ArgumentFactory<Integer> addIntArgument(String name) {
+    public ArgInt.Factory addIntArgument(String name) {
         ArgInt arg = new ArgInt(name);
         arguments.add(arg);
 

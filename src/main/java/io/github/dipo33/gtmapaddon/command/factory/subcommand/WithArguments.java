@@ -1,5 +1,6 @@
 package io.github.dipo33.gtmapaddon.command.factory.subcommand;
 
+import io.github.dipo33.gtmapaddon.command.factory.argument.ArgInt;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgString;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgumentFactory;
 import io.github.dipo33.gtmapaddon.command.factory.argument.ArgumentList;
@@ -10,7 +11,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 
 public interface WithArguments {
 
-    ArgumentFactory<Integer> addIntArgument(String name);
+    ArgInt.Factory addIntArgument(String name);
 
     <E extends Enum<E>> ArgumentFactory<Enum<E>> addEnumArgument(String name, Class<E> clazz);
 

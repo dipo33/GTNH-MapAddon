@@ -20,6 +20,8 @@ dipogtmapaddon.command.exception.parseEnum=§8'§6%s§8' §cis not a valid value
 dipogtmapaddon.command.exception.parseInteger=§cCan't parse argument §8'§6%s§8' §cto an integer §8<§6%s§8>
 dipogtmapaddon.command.exception.parsePlayer=§cPlayer §8'§6%s§8' §cdoesn't exist
 dipogtmapaddon.command.exception.parseStringExpectedLength=§cArgument §8<§6%s§8> §cshould be §6%d §ccharacters long
+dipogtmapaddon.command.exception.parseIntMinValue=§cArgument §8<§6%s§8> §cshould be at least §6%d
+dipogtmapaddon.command.exception.parseIntMaxValue=§cArgument §8<§6%s§8> §cshould be at most §6%d
 
 dipogtmapaddon.command.exception.useCreditCardWrongPin=§cIncorrect PIN code!
 dipogtmapaddon.command.exception.useCreditCardNotEnoughMoney=§cInsufficient funds! You need §6$%s §cto buy this
