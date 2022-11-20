@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class LicenseList implements Serializable<LicenseList> {
 
-    private final Map<Category, List<License>> licenses;
+    private final Map<Category, Map<String, License>> licenses;
     private final Map<UUID, List<License>> ownedLicenses;
 
     public LicenseList() {
@@ -24,8 +24,8 @@ public class LicenseList implements Serializable<LicenseList> {
         ownedLicenses = new ConcurrentHashMap<>();
     }
 
-    private List<License> getLicenses(Category category) {
-        return licenses.computeIfAbsent(category, x -> new ArrayList<>());
+    private Map<String, License> getLicenses(Category category) {
+        return licenses.computeIfAbsent(category, x -> new ConcurrentHashMap<>());
     }
 
     public List<License> getPlayerLicenses(UUID owner) {
@@ -34,6 +34,7 @@ public class LicenseList implements Serializable<LicenseList> {
 
     private Collection<License> getAll() {
         return licenses.values().stream()
+                .map(Map::values)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
     }
@@ -42,12 +43,12 @@ public class LicenseList implements Serializable<LicenseList> {
         return ownedLicenses.keySet();
     }
 
-    public boolean addLicense(License license) {
-        return getLicenses(license.getCategory()).add(license);
+    public License addLicense(License license) {
+        return getLicenses(license.getCategory()).putIfAbsent(license.getName(), license);
     }
 
-    public boolean removeLicense(Category category, String name) {
-        return getLicenses(category).removeIf(license -> license.getName().equalsIgnoreCase(name));
+    public License removeLicense(Category category, String name) {
+        return getLicenses(category).remove(name);
     }
 
     public void assignLicense(License license, UUID owner) {

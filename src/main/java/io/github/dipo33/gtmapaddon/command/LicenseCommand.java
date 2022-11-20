@@ -51,7 +51,7 @@ public class LicenseCommand {
         int price = arguments.getInt(2);
 
         License license = new License(name, category, price);
-        if (!DataCache.LICENSE_LIST.addLicense(license)) {
+        if (DataCache.LICENSE_LIST.addLicense(license) == null) {
             throw new CommandInvalidUsageException("licenseAlreadyExists", category.getName(), name);
         }
 
