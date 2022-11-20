@@ -32,11 +32,32 @@ public class LicenseList implements Serializable<LicenseList> {
         return playerLicenses.computeIfAbsent(owner, x -> new CopyOnWriteArrayList<>());
     }
 
-    private Collection<License> getAllLicenses() {
+    public License getLicense(Category category, String name) {
+        return getLicenses(category).get(name);
+    }
+
+    public Collection<License> getAllPlayerLicenses(Category category, UUID owner) {
+        return getPlayerLicenses(owner).stream()
+                .filter(license -> category == null || license.getCategory() == category)
+                .sorted()
+                .collect(Collectors.toList());
+    }
+
+    public Collection<License> getAllPlayerLicenses(UUID owner) {
+        return getAllPlayerLicenses(null, owner);
+    }
+
+    public Collection<License> getAllLicenses(Category category) {
         return licenses.values().stream()
                 .map(Map::values)
                 .flatMap(Collection::stream)
+                .filter(license -> category == null || license.getCategory() == category)
+                .sorted()
                 .collect(Collectors.toList());
+    }
+
+    public Collection<License> getAllLicenses() {
+        return getAllLicenses(null);
     }
 
     private Collection<UUID> getAllOwners() {
@@ -57,6 +78,16 @@ public class LicenseList implements Serializable<LicenseList> {
 
     public void revokeLicense(License license, UUID owner) {
         getPlayerLicenses(owner).remove(license);
+    }
+
+    public boolean hasLicense(License license, UUID owner) {
+        return getPlayerLicenses(owner).contains(license);
+    }
+
+    public boolean hasLicense(License license) {
+        return playerLicenses.values().stream()
+                .flatMap(Collection::stream)
+                .anyMatch(license::equals);
     }
 
     public static class Keys {

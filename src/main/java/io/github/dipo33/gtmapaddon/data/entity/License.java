@@ -3,7 +3,7 @@ package io.github.dipo33.gtmapaddon.data.entity;
 import io.github.dipo33.gtmapaddon.storage.serializable.Serializable;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class License implements Serializable<License> {
+public class License implements Serializable<License>, Comparable<License> {
 
     public static final License INSTANCE = new License(null, null, 0);
 
@@ -30,8 +30,7 @@ public class License implements Serializable<License> {
     }
 
     public String getDisplayName() {
-        String displayName = name.substring(0, 1).toUpperCase() + name.substring(1);
-        return displayName.replaceAll("([a-z])([A-Z])", "$1 $2");
+        return toDisplayName(this.name);
     }
 
     public Category getCategory() {
@@ -83,5 +82,16 @@ public class License implements Serializable<License> {
         int result = name.hashCode();
         result = 31 * result + category.hashCode();
         return result;
+    }
+
+    @Override
+    public int compareTo(License other) {
+        int result = Integer.compare(price, other.price);
+        return result == 0 ? name.compareTo(other.name) : result;
+    }
+    
+    public static String toDisplayName(String name) {
+        String displayName = name.substring(0, 1).toUpperCase() + name.substring(1);
+        return displayName.replaceAll("([a-z])([A-Z])", "$1 $2");
     }
 }

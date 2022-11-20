@@ -7,7 +7,6 @@ import io.github.dipo33.gtmapaddon.command.factory.subcommand.SubCommand;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatComponentText;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
@@ -51,7 +50,7 @@ public class GenericCommand implements ICommand {
                 GeneralUtils.sendFormattedTranslation(sender, "dipogtmapaddon.command.usageLine", usage);
             }
         } catch (CommandException e) {
-            sender.addChatMessage(new ChatComponentText(e.getMessage()));
+            GeneralUtils.sendFormattedText(sender, e.getMessage());
         }
     }
 

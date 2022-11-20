@@ -16,6 +16,10 @@ public class GeneralUtils {
         sender.addChatMessage(formatText(I18n.format(key, args)));
     }
 
+    public static void sendCommandMessage(ICommandSender sender, String key, Object... args) {
+        sender.addChatMessage(formatText(I18n.format("dipogtmapaddon.command." + key, args)));
+    }
+
     public static IChatComponent formatText(String message) {
         ChatComponentText text = new ChatComponentText("");
         String[] chunks = message.split("(?=\u00a7)");

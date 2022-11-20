@@ -31,6 +31,10 @@ dipogtmapaddon.command.exception.chunkAlreadyOwnedBy=§cCan't buy §6%s §cchunk
 dipogtmapaddon.command.exception.chunkPriceNotSet=§cCan't buy §6%s §cchunk at §8[§6%d§8, §6%d§8] §cin §6%s§c, because the price is not yet set
 
 dipogtmapaddon.command.exception.licenseAlreadyExists=§cCategory §6%s §calready contains a license for §6%s
+dipogtmapaddon.command.exception.licenseDoesNotExist=§cCategory §6%s §cdoesn't contain a license for §6%s
+dipogtmapaddon.command.exception.licenseAlreadyPurchased=§cYou already own a §6%s §clicense for §6%s
+dipogtmapaddon.command.exception.licenseNotPurchased=§cYou don't own a §6%s §clicense for §6%s
+dipogtmapaddon.command.exception.licenseStillInUse=§cYou can't remove a §6%s §clicense for §6%s §cbecause it's still in use
 
 dipogtmapaddon.command.chunkBought=§aYou've successfully bought §6%s §achunk at §8[§6%d§8, §6%d§8] §ain §6%s §afor §6$%d
 dipogtmapaddon.command.chunkUpgraded=§aYou've successfully upgraded §6%s §achunk to a §6%s §achunk at §8[§6%d§8, §6%d§8] §ain §6%s §afor §6$%d
@@ -40,4 +44,11 @@ dipogtmapaddon.command.pricesGet=§eThe prices in §6%s §eare:
 dipogtmapaddon.command.pricesGetType=    §e- §6$%s §8/ §6%s §echunk
 
 
-dipogtmapaddon.command.licenseCreated=§aYou've successfully created §6%s §alicense for §6%s §acosting §6$%d
+dipogtmapaddon.command.licenseCreated=§aYou've successfully created §6%s §alicense for §6%s §acosting §6$%s
+dipogtmapaddon.command.licenseRemoved=§aYou've successfully removed §6%s §alicense for §6%s
+dipogtmapaddon.command.licensePurchased=§aYou've successfully purchased §6%s §alicense for §6%s §acosting §6$%s
+dipogtmapaddon.command.licenseRevoked=§aYou've successfully revoked §6%s §alicense for §6%s §afrom §6%s
+dipogtmapaddon.command.licenseListAll=§eAll §6%s §elicenses are:
+dipogtmapaddon.command.licenseListOwned=§eAll §6%s §elicenses you own are:
+dipogtmapaddon.command.licenseListAvailable=§eAll §6%s §elicenses available for you to purchase are:
+dipogtmapaddon.command.licenseListEntry=    §e- §6%s §efor §6$%s
