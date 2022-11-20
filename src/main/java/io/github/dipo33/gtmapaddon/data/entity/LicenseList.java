@@ -32,7 +32,7 @@ public class LicenseList implements Serializable<LicenseList> {
         return playerLicenses.computeIfAbsent(owner, x -> new CopyOnWriteArrayList<>());
     }
 
-    private Collection<License> getAll() {
+    private Collection<License> getAllLicenses() {
         return licenses.values().stream()
                 .map(Map::values)
                 .flatMap(Collection::stream)
@@ -70,7 +70,7 @@ public class LicenseList implements Serializable<LicenseList> {
         NBTTagCompound tag = new NBTTagCompound();
 
         NBTTagList tagLicences = new NBTTagList();
-        for (License license : item.getAll()) {
+        for (License license : item.getAllLicenses()) {
             tagLicences.appendTag(License.INSTANCE.serialize(license));
         }
 
