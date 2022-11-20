@@ -52,7 +52,7 @@ public class LicenseCommand {
 
         License license = new License(name, category, price);
         if (DataCache.LICENSE_LIST.addLicense(license) == null) {
-            throw new CommandInvalidUsageException("licenseAlreadyExists", category.getName(), name);
+            throw new CommandProcessException("licenseAlreadyExists", category.getName(), name);
         }
 
         GeneralUtils.sendFormattedTranslation(sender, "dipogtmapaddon.command.licenseCreated",
