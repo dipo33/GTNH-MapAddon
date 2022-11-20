@@ -51,9 +51,9 @@ public class License implements Serializable<License> {
     @Override
     public NBTTagCompound serialize(License item) {
         NBTTagCompound tag = new NBTTagCompound();
-        tag.setString(Keys.NAME, this.name);
-        tag.setInteger(Keys.CATEGORY, this.category.ordinal());
-        tag.setInteger(Keys.PRICE, this.price);
+        tag.setString(Keys.NAME, item.getName());
+        tag.setInteger(Keys.CATEGORY, item.getCategory().ordinal());
+        tag.setInteger(Keys.PRICE, item.getPrice());
 
         return tag;
     }
