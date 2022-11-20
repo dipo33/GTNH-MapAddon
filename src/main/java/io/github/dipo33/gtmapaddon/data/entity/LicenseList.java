@@ -28,6 +28,10 @@ public class LicenseList implements Serializable<LicenseList> {
         return licenses.computeIfAbsent(category, x -> new ArrayList<>());
     }
 
+    public List<License> getPlayerLicenses(UUID owner) {
+        return ownedLicenses.computeIfAbsent(owner, x -> new ArrayList<>());
+    }
+
     private Collection<License> getAll() {
         return licenses.values().stream()
                 .flatMap(Collection::stream)
@@ -36,10 +40,6 @@ public class LicenseList implements Serializable<LicenseList> {
 
     private Collection<UUID> getAllOwners() {
         return ownedLicenses.keySet();
-    }
-
-    public List<License> getLicenses(UUID owner) {
-        return ownedLicenses.computeIfAbsent(owner, x -> new ArrayList<>());
     }
 
     public boolean addLicense(License license) {
@@ -51,11 +51,11 @@ public class LicenseList implements Serializable<LicenseList> {
     }
 
     public void assignLicense(License license, UUID owner) {
-        getLicenses(owner).add(license);
+        getPlayerLicenses(owner).add(license);
     }
 
     public void revokeLicense(License license, UUID owner) {
-        getLicenses(owner).remove(license);
+        getPlayerLicenses(owner).remove(license);
     }
 
     public static class Keys {
@@ -78,7 +78,7 @@ public class LicenseList implements Serializable<LicenseList> {
             NBTTagCompound tagOwner = new NBTTagCompound();
 
             NBTTagList tagOwnerLicenses = new NBTTagList();
-            for (License license : item.getLicenses(owner)) {
+            for (License license : item.getPlayerLicenses(owner)) {
                 tagOwnerLicenses.appendTag(License.INSTANCE.serialize(license));
             }
 
