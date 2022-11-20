@@ -17,11 +17,11 @@ import java.util.stream.Collectors;
 public class LicenseList implements Serializable<LicenseList> {
 
     private final Map<Category, Map<String, License>> licenses;
-    private final Map<UUID, List<License>> ownedLicenses;
+    private final Map<UUID, List<License>> playerLicenses;
 
     public LicenseList() {
         licenses = new ConcurrentHashMap<>();
-        ownedLicenses = new ConcurrentHashMap<>();
+        playerLicenses = new ConcurrentHashMap<>();
     }
 
     private Map<String, License> getLicenses(Category category) {
@@ -29,7 +29,7 @@ public class LicenseList implements Serializable<LicenseList> {
     }
 
     public List<License> getPlayerLicenses(UUID owner) {
-        return ownedLicenses.computeIfAbsent(owner, x -> new CopyOnWriteArrayList<>());
+        return playerLicenses.computeIfAbsent(owner, x -> new CopyOnWriteArrayList<>());
     }
 
     private Collection<License> getAll() {
@@ -40,7 +40,7 @@ public class LicenseList implements Serializable<LicenseList> {
     }
 
     private Collection<UUID> getAllOwners() {
-        return ownedLicenses.keySet();
+        return playerLicenses.keySet();
     }
 
     public License addLicense(License license) {
