@@ -51,10 +51,5 @@ public class ArgString extends Argument<String> {
 
             return this;
         }
-
-        @Override
-        public WithArguments build() {
-            return super.build();
-        }
     }
 }
