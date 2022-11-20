@@ -46,8 +46,8 @@ public class LicenseList implements Serializable<LicenseList> {
         return getLicenses(license.getCategory()).add(license);
     }
 
-    public boolean removeLicense(License license) {
-        return getLicenses(license.getCategory()).remove(license);
+    public boolean removeLicense(Category category, String name) {
+        return getLicenses(category).removeIf(license -> license.getName().equalsIgnoreCase(name));
     }
 
     public void assignLicense(License license, UUID owner) {
