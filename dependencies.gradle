@@ -1,9 +1,6 @@
 dependencies {
-    compile files('deps/dipomoneymod-1.2.1.gt.jar')
-
-    dependencies {
-        compile("com.github.GTNewHorizons:VisualProspecting:1.0.36:dev") {
-            exclude module: "TCNodeTracker"
-        }
+    compile deobf("https://dipo33.site/data/dipomoneymod-1.2.1.gt.jar")
+    compile("com.github.GTNewHorizons:VisualProspecting:1.0.36:dev") {
+        exclude module: "TCNodeTracker"
     }
 }
