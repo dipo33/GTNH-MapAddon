@@ -1,21 +1,24 @@
 package io.github.dipo33.gtmapaddon.command.factory;
 
+import io.github.dipo33.gtmapaddon.GeneralUtils;
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandException;
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandInvalidUsageException;
+import io.github.dipo33.gtmapaddon.command.factory.subcommand.SubCommand;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class GenericCommand implements ICommand {
 
     private final List<String> aliases;
-    private final AbstractSubCommand command;
+    private final SubCommand command;
     private final boolean onlyPlayer;
 
-    public GenericCommand(AbstractSubCommand command, boolean onlyPlayer) {
+    public GenericCommand(SubCommand command, boolean onlyPlayer) {
         this.aliases = Collections.singletonList(command.getName());
         this.command = command;
         this.onlyPlayer = onlyPlayer;
@@ -38,7 +41,17 @@ public class GenericCommand implements ICommand {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
-        command.processCommand(sender, args, new ArrayList<>());
+        try {
+            command.processCommand(sender, args);
+        } catch (CommandInvalidUsageException e) {
+            GeneralUtils.sendFormattedText(sender, e.getMessage());
+            GeneralUtils.sendFormattedTranslation(sender, "dipogtmapaddon.command.usage");
+            for (String usage : command.getCommandUsages(e.getProcessedArgs())) {
+                GeneralUtils.sendFormattedTranslation(sender, "dipogtmapaddon.command.usageLine", usage);
+            }
+        } catch (CommandException e) {
+            GeneralUtils.sendFormattedText(sender, e.getMessage());
+        }
     }
 
     @Override

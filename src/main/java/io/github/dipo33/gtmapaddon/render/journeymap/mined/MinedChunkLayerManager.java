@@ -4,9 +4,8 @@ import com.sinthoras.visualprospecting.Utils;
 import com.sinthoras.visualprospecting.integration.model.layers.WaypointProviderManager;
 import com.sinthoras.visualprospecting.integration.model.locations.IWaypointAndLocationProvider;
 import io.github.dipo33.gtmapaddon.ClientProxy;
-import io.github.dipo33.gtmapaddon.storage.ChunkStorage;
 import io.github.dipo33.gtmapaddon.storage.DataCache;
-import io.github.dipo33.gtmapaddon.storage.mined.MinedChunk;
+import io.github.dipo33.gtmapaddon.data.entity.MinedChunk;
 import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;
@@ -26,12 +25,12 @@ public class MinedChunkLayerManager extends WaypointProviderManager {
         final int minMinedChunkZ = Utils.coordBlockToChunk(minBlockZ);
         final int maxMinedChunkX = Utils.coordBlockToChunk(maxBlockX);
         final int maxMinedChunkZ = Utils.coordBlockToChunk(maxBlockZ);
-        final ChunkStorage<MinedChunk> chunkStorage = DataCache.MINED_CHUNKS_STORAGE.getDimension(Minecraft.getMinecraft().thePlayer.dimension);
+        final int dimensionId = Minecraft.getMinecraft().thePlayer.dimension;
 
         final List<MinedChunkLocationProvider> locations = new ArrayList<>();
         for (int chunkX = minMinedChunkX; chunkX <= maxMinedChunkX; chunkX++) {
             for (int chunkZ = minMinedChunkZ; chunkZ <= maxMinedChunkZ; chunkZ++) {
-                final MinedChunk minedChunk = chunkStorage.getElementAtChunk(chunkX, chunkZ);
+                final MinedChunk minedChunk = DataCache.MINED_CHUNKS_STORAGE.get(dimensionId, chunkX, chunkZ);
                 if (minedChunk != null) {
                     locations.add(new MinedChunkLocationProvider(minedChunk));
                 }

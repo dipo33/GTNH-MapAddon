@@ -1,6 +1,8 @@
 package io.github.dipo33.gtmapaddon.command.factory.argument;
 
-import io.github.dipo33.gtmapaddon.command.factory.WithArguments;
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandException;
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandParseException;
+import io.github.dipo33.gtmapaddon.command.factory.subcommand.WithArguments;
 import net.minecraft.command.ICommandSender;
 
 import java.util.Arrays;
@@ -17,19 +19,18 @@ public class ArgEnum<E extends Enum<E>> extends Argument<Enum<E>> {
     }
 
     @Override
-    public boolean fill(String value, ICommandSender sender) {
+    public Enum<E> parse(String value, ICommandSender sender) throws CommandException {
         for (E option : clazz.getEnumConstants()) {
             if (option.name().equalsIgnoreCase(value)) {
-                super.set(option);
-                return true;
+                return option;
             }
         }
 
-        return false;
+        throw new CommandParseException("parseEnum", value, getName());
     }
 
     @Override
-    public String getUsage() {
+    public String getUsageInternal() {
         final StringBuilder builder = new StringBuilder("<");
 
         E[] options = clazz.getEnumConstants();
@@ -41,11 +42,6 @@ public class ArgEnum<E extends Enum<E>> extends Argument<Enum<E>> {
         }
 
         return builder.append(">").toString();
-    }
-
-    @Override
-    public String getError() {
-        return String.format("Not a valid option of <%s>", getName());
     }
 
     @Override

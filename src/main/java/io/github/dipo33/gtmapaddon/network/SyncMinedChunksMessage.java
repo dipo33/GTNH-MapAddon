@@ -6,24 +6,23 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.github.dipo33.gtmapaddon.storage.ChunkStorage;
 import io.github.dipo33.gtmapaddon.storage.DataCache;
-import io.github.dipo33.gtmapaddon.storage.DimensionStorage;
-import io.github.dipo33.gtmapaddon.storage.mined.MinedChunk;
+import io.github.dipo33.gtmapaddon.data.entity.MinedChunk;
 import io.netty.buffer.ByteBuf;
 
 public class SyncMinedChunksMessage implements IMessage {
 
-    private DimensionStorage<MinedChunk> dimensionStorage;
+    private ChunkStorage<MinedChunk> chunkStorage;
 
     public SyncMinedChunksMessage() {
     }
 
-    public SyncMinedChunksMessage(DimensionStorage<MinedChunk> dimensionStorage) {
-        this.dimensionStorage = dimensionStorage;
+    public SyncMinedChunksMessage(ChunkStorage<MinedChunk> chunkStorage) {
+        this.chunkStorage = chunkStorage;
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        dimensionStorage = new DimensionStorage<>();
+        chunkStorage = new ChunkStorage<>(MinedChunk.INSTANCE);
         while (buf.readBoolean()) {
             final int chunkX = buf.readInt();
             final int chunkZ = buf.readInt();
@@ -31,20 +30,18 @@ public class SyncMinedChunksMessage implements IMessage {
             final String minedBy = ByteBufUtils.readUTF8String(buf);
             final MinedChunk minedChunk = new MinedChunk(chunkX, chunkZ, dimensionId, minedBy);
 
-            dimensionStorage.getDimension(dimensionId).setElementAtChunk(chunkX, chunkZ, minedChunk);
+            chunkStorage.put(dimensionId, chunkX, chunkZ, minedChunk);
         }
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        for (ChunkStorage<MinedChunk> chunkStorage : dimensionStorage.getAll()) {
-            for (MinedChunk minedChunk : chunkStorage.getAll()) {
-                buf.writeBoolean(true);
-                buf.writeInt(minedChunk.getChunkX());
-                buf.writeInt(minedChunk.getChunkZ());
-                buf.writeInt(minedChunk.getDimensionId());
-                ByteBufUtils.writeUTF8String(buf, minedChunk.getMinedBy());
-            }
+        for (MinedChunk minedChunk : chunkStorage.getAll()) {
+            buf.writeBoolean(true);
+            buf.writeInt(minedChunk.getChunkX());
+            buf.writeInt(minedChunk.getChunkZ());
+            buf.writeInt(minedChunk.getDimensionId());
+            ByteBufUtils.writeUTF8String(buf, minedChunk.getMinedBy());
         }
 
         buf.writeBoolean(false);
@@ -53,8 +50,8 @@ public class SyncMinedChunksMessage implements IMessage {
     public static final class Handler implements IMessageHandler<SyncMinedChunksMessage, IMessage> {
 
         @Override
-        public IMessage onMessage(SyncMinedChunksMessage message, MessageContext ctx) {
-            DataCache.MINED_CHUNKS_STORAGE = message.dimensionStorage;
+        public IMessage onMessage(SyncMinedChunksMessage msg, MessageContext ctx) {
+            DataCache.MINED_CHUNKS_STORAGE = msg.chunkStorage;
 
             return null;
         }

@@ -1,5 +1,6 @@
 package io.github.dipo33.gtmapaddon.command.factory;
 
+import io.github.dipo33.gtmapaddon.command.factory.subcommand.SubCommand;
 import net.minecraft.command.ICommand;
 
 public class CommandFactory {
@@ -17,7 +18,7 @@ public class CommandFactory {
         return this;
     }
 
-    public ICommand addSubCommand(AbstractSubCommand subCommand) {
+    public ICommand addSubCommand(SubCommand subCommand) {
         subCommand.setMainCommand(subCommand);
         return new GenericCommand(subCommand, onlyPlayer);
     }

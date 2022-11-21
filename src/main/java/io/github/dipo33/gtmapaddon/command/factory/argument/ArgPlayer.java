@@ -1,9 +1,11 @@
 package io.github.dipo33.gtmapaddon.command.factory.argument;
 
-import io.github.dipo33.gtmapaddon.command.factory.WithArguments;
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandException;
+import io.github.dipo33.gtmapaddon.command.factory.exception.CommandParseException;
+import io.github.dipo33.gtmapaddon.command.factory.subcommand.WithArguments;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.command.PlayerSelector;
+import net.minecraft.command.PlayerNotFoundException;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import scala.actors.threadpool.Arrays;
@@ -11,39 +13,28 @@ import scala.actors.threadpool.Arrays;
 import java.util.List;
 
 public class ArgPlayer extends Argument<EntityPlayerMP> {
-    
-    private boolean defaultsToSender = false;
-    
+
     public ArgPlayer(String name) {
         super(name);
     }
 
     @Override
-    public boolean isOptional() {
-        return super.isOptional() || defaultsToSender;
-    }
+    public EntityPlayerMP parse(String value, ICommandSender sender) throws CommandException {
+        try {
+            final EntityPlayerMP player = CommandBase.getPlayer(sender, value);
+            if (player == null) {
+                throw new CommandParseException("parsePlayer", value);
+            }
 
-    public void setDefaultsToSender(boolean defaultsToSender) {
-        this.defaultsToSender = defaultsToSender;
-    }
-
-    @Override
-    public boolean fill(String value, ICommandSender sender) {
-        final EntityPlayerMP player = defaultsToSender ?
-                    CommandBase.getPlayer(sender, value) : PlayerSelector.matchOnePlayer(sender, value);
-        super.set(player);
-
-        return player != null;
+            return player;
+        } catch (PlayerNotFoundException e) {
+            throw new CommandParseException("parsePlayer", value);
+        }
     }
 
     @Override
-    public String getUsage() {
+    public String getUsageInternal() {
         return String.format("<%s>", getName());
-    }
-
-    @Override
-    public String getError() {
-        return "Specified player doesn't exist";
     }
 
     @Override
@@ -53,25 +44,7 @@ public class ArgPlayer extends Argument<EntityPlayerMP> {
     }
 
     @Override
-    public Factory getFactory(WithArguments commandFactory) {
-        return new Factory(this, commandFactory);
-    }
-    
-    public static class Factory extends ArgumentFactory<EntityPlayerMP> {
-
-        public Factory(ArgPlayer argument, WithArguments commandFactory) {
-            super(argument, commandFactory);
-        }
-        
-        public Factory defaultsToSender() {
-            ((ArgPlayer) super.argument).setDefaultsToSender(true);
-            
-            return this;
-        }
-
-        @Override
-        public WithArguments build() {
-            return super.build();
-        }
+    public ArgumentFactory<EntityPlayerMP> getFactory(WithArguments commandFactory) {
+        return new ArgumentFactory<>(this, commandFactory);
     }
 }

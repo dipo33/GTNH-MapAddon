@@ -8,5 +8,47 @@ dipogtmapaddon.BUILD=Build Chunk
 dipogtmapaddon.FARM=Farm Chunk
 dipogtmapaddon.TRANSPORT=Transport Chunk
 
-dipogtmapaddon.command.chunkBought=§aYou've successfully bought §6%s §achunk at §8[§6%d§8, §6%d§8] §afor §6$%d
+dipogtmapaddon.command.usage=§cUsage:
+dipogtmapaddon.command.usageLine=    §c/%s
+dipogtmapaddon.command.exception.error=§cError
+dipogtmapaddon.command.exception.notEnoughArguments=§cNot enough arguments
+dipogtmapaddon.command.exception.invalidSubCommand=§8'§6%s§8'§c is not a valid sub-command
+dipogtmapaddon.command.exception.parseDipoPrice=§cCan't parse argument §8'§6%s§8' §cto a price
+dipogtmapaddon.command.exception.parseDipoPriceDots=§cCan't parse argument §8'§6%s§8' §cto a price (more than one dot is not allowed)
+dipogtmapaddon.command.exception.parseDipoPriceDecimals=§cCan't parse argument §8'§6%s§8' §cto a price (only two decimal points are allowed)
+dipogtmapaddon.command.exception.parseEnum=§8'§6%s§8' §cis not a valid value for §8<§6%s§8>
+dipogtmapaddon.command.exception.parseInteger=§cCan't parse argument §8'§6%s§8' §cto an integer §8<§6%s§8>
+dipogtmapaddon.command.exception.parsePlayer=§cPlayer §8'§6%s§8' §cdoesn't exist
+dipogtmapaddon.command.exception.parseStringExpectedLength=§cArgument §8<§6%s§8> §cshould be §6%d §ccharacters long
+dipogtmapaddon.command.exception.parseIntMinValue=§cArgument §8<§6%s§8> §cshould be at least §6%d
+dipogtmapaddon.command.exception.parseIntMaxValue=§cArgument §8<§6%s§8> §cshould be at most §6%d
+
+dipogtmapaddon.command.exception.useCreditCardWrongPin=§cIncorrect PIN code!
+dipogtmapaddon.command.exception.useCreditCardNotEnoughMoney=§cInsufficient funds! You need §6$%s §cto buy this
+dipogtmapaddon.command.exception.useCreditCardNotHeld=§cYou need to hold a credit card in your hand!
+dipogtmapaddon.command.exception.chunkAlreadyOwned=§cCan't buy §6%s §cchunk at §8[§6%d§8, §6%d§8] §cin §6%s §cbecause you already own it
+dipogtmapaddon.command.exception.chunkAlreadyOwnedBy=§cCan't buy §6%s §cchunk at §8[§6%d§8, §6%d§8] §cin §6%s §cbecause it's already owned by §6%s
+dipogtmapaddon.command.exception.chunkPriceNotSet=§cCan't buy §6%s §cchunk at §8[§6%d§8, §6%d§8] §cin §6%s §cbecause the price is not yet set
+
+dipogtmapaddon.command.exception.licenseAlreadyExists=§cCategory §6%s §calready contains a license for §6%s
+dipogtmapaddon.command.exception.licenseDoesNotExist=§cCategory §6%s §cdoesn't contain a license for §6%s
+dipogtmapaddon.command.exception.licenseAlreadyPurchased=§cYou already own a §6%s §clicense for §6%s
+dipogtmapaddon.command.exception.licenseNotPurchased=§cYou don't own a §6%s §clicense for §6%s
+dipogtmapaddon.command.exception.licenseStillInUse=§cYou can't remove a §6%s §clicense for §6%s §cbecause it's still in use
+
+dipogtmapaddon.command.chunkBought=§aYou've successfully bought §6%s §achunk at §8[§6%d§8, §6%d§8] §ain §6%s §afor §6$%d
+dipogtmapaddon.command.chunkUpgraded=§aYou've successfully upgraded §6%s §achunk to a §6%s §achunk at §8[§6%d§8, §6%d§8] §ain §6%s §afor §6$%d
 dipogtmapaddon.command.chunkMarked=§aYou've successfully marked chunk at §8[§6%d§8, §6%d§8] §aas mined by §6%s
+dipogtmapaddon.command.priceSet=§aYou've successfully set the price for §6%s §achunk in §6%s §ato §6$%d
+dipogtmapaddon.command.pricesGet=§eThe prices in §6%s §eare:
+dipogtmapaddon.command.pricesGetType=    §e- §6$%s §8/ §6%s §echunk
+
+
+dipogtmapaddon.command.licenseCreated=§aYou've successfully created §6%s §alicense for §6%s §acosting §6$%s
+dipogtmapaddon.command.licenseRemoved=§aYou've successfully removed §6%s §alicense for §6%s
+dipogtmapaddon.command.licensePurchased=§aYou've successfully purchased §6%s §alicense for §6%s §acosting §6$%s
+dipogtmapaddon.command.licenseRevoked=§aYou've successfully revoked §6%s §alicense for §6%s §afrom §6%s
+dipogtmapaddon.command.licenseListAll=§eAll §6%s §elicenses are:
+dipogtmapaddon.command.licenseListOwned=§eAll §6%s §elicenses you own are:
+dipogtmapaddon.command.licenseListAvailable=§eAll §6%s §elicenses available for you to purchase are:
+dipogtmapaddon.command.licenseListEntry=    §e- §6%s §efor §6$%s

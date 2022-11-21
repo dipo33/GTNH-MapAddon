@@ -38,9 +38,8 @@ public class RemoveMinedChunkClientMessage implements IMessage {
     public static final class Handler implements IMessageHandler<RemoveMinedChunkClientMessage, IMessage> {
 
         @Override
-        public IMessage onMessage(RemoveMinedChunkClientMessage message, MessageContext ctx) {
-            DataCache.MINED_CHUNKS_STORAGE.getDimension(message.dimensionId)
-                    .removeElementAtChunk(message.chunkX, message.chunkZ);
+        public IMessage onMessage(RemoveMinedChunkClientMessage msg, MessageContext ctx) {
+            DataCache.MINED_CHUNKS_STORAGE.remove(msg.dimensionId, msg.chunkX, msg.chunkZ);
 
             return null;
         }

@@ -5,7 +5,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.github.dipo33.gtmapaddon.storage.DataCache;
-import io.github.dipo33.gtmapaddon.storage.owned.OwnedChunk;
+import io.github.dipo33.gtmapaddon.data.entity.OwnedChunk;
 import io.netty.buffer.ByteBuf;
 
 public class BoughtChunkMessage implements IMessage {
@@ -42,10 +42,9 @@ public class BoughtChunkMessage implements IMessage {
     public static final class Handler implements IMessageHandler<BoughtChunkMessage, IMessage> {
 
         @Override
-        public IMessage onMessage(BoughtChunkMessage message, MessageContext ctx) {
-            final OwnedChunk ownedChunk = message.ownedChunk;
-            DataCache.OWNED_CHUNKS_STORAGE.getDimension(ownedChunk.getDimensionId())
-                    .setElementAtChunk(ownedChunk.getChunkX(), ownedChunk.getChunkZ(), ownedChunk);
+        public IMessage onMessage(BoughtChunkMessage msg, MessageContext ctx) {
+            final OwnedChunk chunk = msg.ownedChunk;
+            DataCache.OWNED_CHUNKS_STORAGE.put(chunk.getDimensionId(), chunk.getChunkX(), chunk.getChunkZ(), chunk);
 
             return null;
         }
