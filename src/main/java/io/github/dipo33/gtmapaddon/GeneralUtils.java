@@ -1,11 +1,11 @@
 package io.github.dipo33.gtmapaddon;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.util.StatCollector;
 
 public class GeneralUtils {
     public static void sendFormattedText(ICommandSender sender, String message) {
@@ -13,11 +13,11 @@ public class GeneralUtils {
     }
 
     public static void sendFormattedTranslation(ICommandSender sender, String key, Object... args) {
-        sender.addChatMessage(formatText(I18n.format(key, args)));
+        sender.addChatMessage(formatText(StatCollector.translateToLocalFormatted(key, args)));
     }
 
     public static void sendCommandMessage(ICommandSender sender, String key, Object... args) {
-        sender.addChatMessage(formatText(I18n.format("dipogtmapaddon.command." + key, args)));
+        sender.addChatMessage(formatText(StatCollector.translateToLocalFormatted("dipogtmapaddon.command." + key, args)));
     }
 
     public static IChatComponent formatText(String message) {
